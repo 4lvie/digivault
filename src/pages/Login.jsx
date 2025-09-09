@@ -1,8 +1,10 @@
-import { useState } from "react";
-import {client} from "../supabase/client";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { client } from "../supabase/client";
 
 function Login(){
     const [email, setEmail] = useState("")
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -16,6 +18,14 @@ function Login(){
         }
     };
 
+/*     useEffect(() => {
+        if (client.auth.getUser()) {
+            navigate("/");
+        }
+    }, [navigate]); */
+
+
+    
     return(
         <div>
             <form onSubmit={handleSubmit}>
