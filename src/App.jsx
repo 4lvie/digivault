@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
 import { Outlet, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import Home from "./components/Home";
-import Vault from "./components/Vault";
-import ExploreVault from "./components/ExploreVault";
+import {client} from "./supabase/client";
+
+import Home from "./pages/Home";
+import Vault from "./pages/Vault";
+import ExploreVault from "./pages/ExploreVault";
 import Login from "./pages/Login";
 import './App.css';
-import {client} from "./supabase/client";
 
 function App() {
 

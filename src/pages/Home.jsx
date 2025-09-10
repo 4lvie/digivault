@@ -1,22 +1,23 @@
-import { Link, useNavigate } from "react-router-dom";
-import Login from "../pages/Login";
-import { client } from "../supabase/client";
+import Login from "./Login";
+import TaskForm from "../components/TaskForm";
 import { useEffect } from "react";
+import { client } from "../supabase/client";
+import { Link, useNavigate } from "react-router-dom";
 
 function Home() {
 
   const navigate = useNavigate();
 
-   /*useEffect(() => {
-    async function checkUser() {
+  useEffect(() => {
+    const checkUser = async () => {
       const { data, error } = await client.auth.getUser();
-      if (!data.user || error) {
+      if (error || !data.user) {
         navigate("/login");
-        console.log("No user logged in, redirecting to login."), data.user;
+        console.log("No user logged in, redirecting to login.");
       }
-    }
+    };
     checkUser();
-  }, [navigate]);*/
+  }, [navigate]);
 
   const handleSignOut = async () => {
     const { error } = await client.auth.signOut();
@@ -28,11 +29,10 @@ function Home() {
   };
 
   return (
-    <div>
+    <div className="space-y-4">
       <h2>Home</h2>
-      <button className="btn btn-info" onClick={handleSignOut}>
-        Sign Out
-        </button>
+      <button className="btn btn-info" onClick={handleSignOut}> Sign Out </button>
+      <TaskForm />
     </div>
   );
 }

@@ -1,12 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./components/Home";
-import Vault from "./components/Vault";
-import ExploreVault from "./components/ExploreVault";
-import Login from "./pages/Login";
-import NotFound from "./components/NotFound";
 import App from "./App"
+
+import Home from "./pages/Home";
+import Vault from "./pages/Vault";
+import Login from "./pages/Login";
+import NotFound from "./pages/NotFound";
+import ExploreVault from "./pages/ExploreVault";
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 
 const root = document.getElementById("root");
