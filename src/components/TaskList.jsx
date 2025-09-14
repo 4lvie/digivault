@@ -1,13 +1,14 @@
 import { useTask } from "../context/TaskContext";
 import { useEffect } from "react";
 import MemoryCard from "./MemoryCard";
+import { CONSTS } from "../constants/constants";
 
 function TaskList() {
   const { tasks, getTasks, loading } = useTask();
   console.log(tasks);
 
   useEffect(() => {
-    getTasks();
+    getTasks({tableName: CONSTS.MEMORIES});
   }, []);
 
   function renderTasks() {

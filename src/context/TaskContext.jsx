@@ -1,6 +1,7 @@
 import { createContext, useContext } from "react";
 import { useState } from "react";
 import { client } from "../supabase/client";
+import { CONSTS } from "../constants/constants";
 
 export const TaskContext = createContext();
 
@@ -20,10 +21,10 @@ export const TaskProvider = ({ children }) => {
 
   // Fetch tasks from Supabase
 
-  const getTasks = async () => {
+  const getTasks = async ({tableName}) => {
     setLoading(true);
     const userID = (await client.auth.getUser()).data.user.id;
-    const {error, data} = await client.from("memories_test").select().eq('user_uid', userID);
+    const {error, data} = await client.from(tableName).select().eq('user_uid', userID);
     if (error) {
       throw error;
     }
@@ -35,11 +36,11 @@ export const TaskProvider = ({ children }) => {
   const createTask = async ({taskName, tableName}) => {
     try {
       setAdding(true);
-      const client_user = await client.auth.getUser();
+      const userID = (await client.auth.getUser()).data.user.id;
 
       const {error, data} = await client.from(tableName).insert([{
           item_name: taskName,
-          user_uid: client_user.data.user.id
+          user_uid: userID
       }]).select();
       if (error) {
         throw error;
@@ -54,8 +55,23 @@ export const TaskProvider = ({ children }) => {
     }
   };
 
+  const deleteTask = async ({tableName, id}) => {
+    try {
+      const userID = (await client.auth.getUser()).data.user.id;
+      const {data, error} = await client.from(tableName).delete().eq('id', id).eq('user_uid', userID).select();
+      if (error) {
+        throw error;
+      } if (data) {
+        setTasks(tasks.filter(task => task.id !== id));
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+    }
+  };
+
   return (
-    <TaskContext.Provider value={{tasks, adding, loading, getTasks, createTask}}>
+    <TaskContext.Provider value={{tasks, adding, loading, getTasks, createTask, deleteTask}}>
       {children}
     </TaskContext.Provider>
   );

@@ -1,6 +1,7 @@
 import React from "react";  
 import { useState } from "react";
 import { useTask } from "../context/TaskContext";
+import { CONSTS } from "../constants/constants";
 
 
 function TaskForm() {
@@ -10,7 +11,7 @@ function TaskForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setTaskName("");
-        createTask({ taskName, tableName: "memories_test" });
+        createTask({ taskName, tableName: CONSTS.MEMORIES });
     };
 
   return (
