@@ -3,6 +3,7 @@ import TaskForm from "../components/TaskForm";
 import { useEffect } from "react";
 import { client } from "../supabase/client";
 import { Link, useNavigate } from "react-router-dom";
+import TaskList from "../components/TaskList";
 
 function Home() {
 
@@ -33,6 +34,7 @@ function Home() {
       <h2>Home</h2>
       <button className="btn btn-info" onClick={handleSignOut}> Sign Out </button>
       <TaskForm />
+      <TaskList />
     </div>
   );
 }
