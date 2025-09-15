@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Button from "../components/ux/ui/Button.jsx";
+import MemoryForm from "../components/ux/ui/MemoryForm.jsx";
 
 function ExploreVault() {
   const images = Object.values(
@@ -46,6 +47,7 @@ function ExploreVault() {
             />
           ))}
         </div>
+        <MemoryForm />
       </div>
     </div>
   );
