@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Button from "./ux/Button.jsx";
+import Button from "../components/Button.jsx";
 
 function ExploreVault() {
   const images = Object.values(
