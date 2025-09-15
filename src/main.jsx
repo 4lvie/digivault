@@ -7,6 +7,7 @@ import Vault from "./pages/Vault";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import ExploreVault from "./pages/ExploreVault";
+import Layout from "./components/ux/ui/Layout";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { TaskProvider } from "./context/TaskContext";
@@ -17,11 +18,13 @@ ReactDOM.createRoot(root).render(
   <BrowserRouter>
     <TaskProvider>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="vault" element={<Vault />} />
-        <Route path="explorevault" element={<ExploreVault />} />
-        <Route path="login" element={<Login />} />
-        <Route path="*" element={<NotFound />} />
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="vault" element={<Vault />} />
+          <Route path="explorevault" element={<ExploreVault />} />
+          <Route path="login" element={<Login />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
       </Routes>
     </TaskProvider>
   </BrowserRouter>
