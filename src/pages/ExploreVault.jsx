@@ -1,9 +1,12 @@
 import { useState } from "react";
-import Button from "../components/Button.jsx";
+import Button from "../components/ux/ui/Button.jsx";
 
 function ExploreVault() {
   const images = Object.values(
-    import.meta.glob("/src/assets/vaultimages/*.png", { eager: true, import: "default" })
+    import.meta.glob("/src/assets/vaultimages/*.png", {
+      eager: true,
+      import: "default",
+    })
   );
 
   // Estado para la imagen seleccionada
@@ -38,7 +41,7 @@ function ExploreVault() {
             <Button
               content={img}
               key={i}
-              isSelected = {selected === img}
+              isSelected={selected === img}
               onClick={() => setSelected(img)}
             />
           ))}

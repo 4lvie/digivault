@@ -12,9 +12,14 @@ function Drawer({ children }) {
           className="drawer-overlay"
         ></label>
         <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
-          {/* Sidebar content here */}
           <li>
-            <Link to="/login">Login</Link>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/vault">Vault</Link>
+          </li>
+          <li>
+            <Link to="/explorevault">Explore Vault</Link>
           </li>
         </ul>
       </div>
