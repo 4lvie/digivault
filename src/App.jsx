@@ -1,18 +1,17 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import {client} from "./supabase/client";
+import { client } from "./supabase/client";
 
 import Home from "./pages/Home";
 import Vault from "./pages/Vault";
 import ExploreVault from "./pages/ExploreVault";
 import Login from "./pages/Login";
-import './App.css';
+import "./App.css";
 
 function App() {
-
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     client.auth.onAuthStateChange((event, session) => {
       if (!session) {
@@ -21,7 +20,7 @@ function App() {
         navigate("/");
       }
     });
-  }, []); 
+  }, []);
 
   return (
     <>
