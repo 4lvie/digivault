@@ -1,29 +1,44 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
+// Dropzone component for file uploads
 function Dropzone() {
+  const [preview, setPreview] = useState(null);
+  // Handle file drop.
   const onDrop = useCallback((acceptedFiles) => {
-    acceptedFiles.forEach((file) => {
-      const reader = new FileReader();
-
-      reader.onabort = () => console.log("file reading was aborted");
-      reader.onerror = () => console.log("file reading has failed");
-      reader.onload = () => {
-        const binaryStr = reader.result;
-        console.log(binaryStr);
-      };
-      reader.readAsArrayBuffer(file);
-    });
+    const firstFile = acceptedFiles[0];
+    const reader = new FileReader();
+    // Event handlers for file reading.
+    reader.onabort = () => console.log("file reading was aborted");
+    reader.onerror = () => console.log("file reading has failed");
+    reader.onload = () => {
+      setPreview(reader.result);
+    };
+    // Read the file as a data URL.
+    reader.readAsDataURL(firstFile);
   }, []);
-  const { getRootProps, getInputProps } = useDropzone({ onDrop });
+  // Set up the dropzone with desired configurations.
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop,
+    accept: { "image/*": [] },
+    multiple: false,
+  });
 
   return (
-    <div
-      {...getRootProps()}
-      className="input input-bordered w-32 h-32 flex-none mr-4 flex items-center justify-center text-center text-sm cursor-pointer"
-    >
-      <input {...getInputProps()} />
-      <p>Upload Image</p>
+    <div className="flex flex-col items-center">
+      <div
+        // Dropzone area
+        {...getRootProps()}
+        // Styling for the dropzone
+        className="input input-bordered w-32 h-32 flex-none mr-4 flex items-center justify-center text-center text-sm cursor-pointer"
+      >
+        <input {...getInputProps()} />
+        {!preview ? (
+          <p>Upload Image</p>
+        ) : (
+          <img src={preview} alt="preview" className="object-cover" />
+        )}
+      </div>
     </div>
   );
 }
