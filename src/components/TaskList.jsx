@@ -8,12 +8,16 @@ function TaskList() {
   console.log(tasks);
 
   useEffect(() => {
-    getTasks({tableName: CONSTS.MEMORIES});
+    getTasks({ tableName: CONSTS.MEMORIES_TEST });
   }, []);
 
   function renderTasks() {
     if (loading) {
-      return <span className="loading loading-dots text-info loading-lg">Loading...</span>;
+      return (
+        <span className="loading loading-dots text-info loading-lg">
+          Loading...
+        </span>
+      );
     } else if (tasks.length === 0) {
       return <h3>No tasks found</h3>;
     } else {
@@ -33,7 +37,6 @@ function TaskList() {
       {renderTasks()}
     </div>
   );
-
 }
 
 export default TaskList;

@@ -4,13 +4,13 @@ import { useTask } from "../context/TaskContext";
 import { CONSTS } from "../constants/constants";
 
 function TaskForm() {
-  const [taskName, setTaskName] = useState("");
-  const { createTask, adding } = useTask();
+  const [memoryName, setMemoryName] = useState("");
+  const { createMemory, adding } = useTask();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setTaskName("");
-    createTask({ taskName, tableName: CONSTS.MEMORIES });
+    setMemoryName("");
+    createMemory({ memoryName, tableName: CONSTS.MEMORIES_TEST });
   };
 
   return (
@@ -19,8 +19,8 @@ function TaskForm() {
         type="text"
         placeholder="Write a Task Name"
         className="input input-md"
-        value={taskName}
-        onChange={(e) => setTaskName(e.target.value)}
+        value={memoryName}
+        onChange={(e) => setMemoryName(e.target.value)}
       />
       <button
         disabled={adding}

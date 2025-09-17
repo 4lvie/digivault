@@ -2,21 +2,28 @@ import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
 // Dropzone component for file uploads
-function Dropzone() {
+function Dropzone({ onChange }) {
   const [preview, setPreview] = useState(null);
   // Handle file drop.
-  const onDrop = useCallback((acceptedFiles) => {
-    const firstFile = acceptedFiles[0];
-    const reader = new FileReader();
-    // Event handlers for file reading.
-    reader.onabort = () => console.log("file reading was aborted");
-    reader.onerror = () => console.log("file reading has failed");
-    reader.onload = () => {
-      setPreview(reader.result);
-    };
-    // Read the file as a data URL.
-    reader.readAsDataURL(firstFile);
-  }, []);
+  const onDrop = useCallback(
+    (acceptedFiles) => {
+      const firstFile = acceptedFiles[0];
+      const reader = new FileReader();
+      // Event handlers for file reading.
+      reader.onabort = () => console.log("file reading was aborted");
+      reader.onerror = () => console.log("file reading has failed");
+      reader.onload = () => {
+        setPreview(reader.result);
+      };
+      // Callback to obtain image file in parent component.
+      if (onChange) {
+        onChange(firstFile);
+      }
+      // Read the file as a data URL.
+      reader.readAsDataURL(firstFile);
+    },
+    [onChange]
+  );
   // Set up the dropzone with desired configurations.
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
