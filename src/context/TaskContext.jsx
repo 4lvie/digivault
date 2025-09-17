@@ -35,7 +35,7 @@ export const TaskProvider = ({ children }) => {
     setLoading(false);
   };
 
-  const createTask = async ({ taskName, tableName }) => {
+  const createMemory = async ({ tableName, payload }) => {
     try {
       setAdding(true);
       const userID = (await client.auth.getUser()).data.user.id;
@@ -44,7 +44,7 @@ export const TaskProvider = ({ children }) => {
         .from(tableName)
         .insert([
           {
-            item_name: taskName,
+            ...payload,
             user_uid: userID,
           },
         ])
@@ -85,7 +85,7 @@ export const TaskProvider = ({ children }) => {
 
   return (
     <TaskContext.Provider
-      value={{ tasks, adding, loading, getTasks, createTask, deleteTask }}
+      value={{ tasks, adding, loading, getTasks, createMemory, deleteTask }}
     >
       {children}
     </TaskContext.Provider>

@@ -8,7 +8,7 @@ function MemoryCard({ task }) {
 
   const handleDelete = async () => {
     setDeleting(true);
-    await deleteTask({ tableName: CONSTS.MEMORIES, id: task.id });
+    await deleteTask({ tableName: CONSTS.MEMORIES_TEST, id: task.id });
     setDeleting(false);
   };
 
