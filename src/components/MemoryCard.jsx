@@ -1,5 +1,5 @@
 import { useTask } from "../context/TaskContext";
-import { CONSTS } from "../constants/constants";
+import { CONSTS } from "../constants/Constants";
 import { useState } from "react";
 
 function MemoryCard({ task }) {

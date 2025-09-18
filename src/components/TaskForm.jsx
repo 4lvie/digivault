@@ -1,16 +1,17 @@
-import React from "react";
 import { useState } from "react";
 import { useTask } from "../context/TaskContext";
-import { CONSTS } from "../constants/constants";
+import { CONSTS } from "../constants/Constants";
 
 function TaskForm() {
   const [memoryName, setMemoryName] = useState("");
   const { createMemory, adding } = useTask();
 
+  const payload = { item_name: memoryName };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMemoryName("");
-    createMemory({ memoryName, tableName: CONSTS.MEMORIES_TEST });
+    await createMemory({ tableName: CONSTS.MEMORIES_TEST, payload: payload });
   };
 
   return (

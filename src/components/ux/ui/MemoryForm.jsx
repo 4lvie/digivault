@@ -1,6 +1,6 @@
 import Dropzone from "./Dropzone";
 import { client } from "../../../supabase/client";
-import { CONSTS } from "../../../constants/constants";
+import { CONSTS } from "../../../constants/Constants";
 import { useState } from "react";
 import { useTask } from "../../../context/TaskContext";
 
@@ -20,13 +20,15 @@ function MemoryForm() {
       item_location: memoryLocation,
       item_desc: memoryDetails,
       item_obtained_date: memoryDate,
-      item_image: memoryImage ? await btoa(memoryImage) : null,
+      item_image: memoryImage ? await memoryImage : null,
     };
+
     setMemoryName("");
     setMemoryDetails("");
     setMemoryDate("");
     setMemoryImage("");
     setMemoryLocation("");
+    console.log(payload.item_image);
     await createMemory({ tableName: CONSTS.MEMORIES, payload: payload });
   };
 
@@ -89,8 +91,9 @@ function MemoryForm() {
             <button
               className="btn btn-primary flex-1 space-y-2 w-full"
               onClick={saveMemory}
+              disabled={adding}
             >
-              Save Memory
+              {adding ? "Adding Memory..." : "Add Memory"}
             </button>
             <label htmlFor="memoryform" className="btn">
               Close

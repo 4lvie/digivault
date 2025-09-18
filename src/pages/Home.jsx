@@ -1,9 +1,6 @@
-import Login from "./Login";
-import TaskForm from "../components/TaskForm";
 import { useEffect } from "react";
 import { client } from "../supabase/client";
-import { Link, useNavigate } from "react-router-dom";
-import TaskList from "../components/TaskList";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const navigate = useNavigate();
@@ -35,8 +32,6 @@ function Home() {
         {" "}
         Sign Out{" "}
       </button>
-      <TaskForm />
-      <TaskList />
     </div>
   );
 }
