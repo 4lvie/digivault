@@ -1,7 +1,6 @@
 import { useState } from "react";
 import MemoryForm from "../components/ux/ui/MemoryForm.jsx";
-import TaskForm from "../components/TaskForm";
-import TaskList from "../components/TaskList";
+import TaskList from "../components/MemoryList.jsx";
 
 function ExploreVault() {
   return (

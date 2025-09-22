@@ -2,9 +2,7 @@ import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
 // Dropzone component for file uploads
-function Dropzone({ onChange }) {
-  const [preview, setPreview] = useState(null);
-
+function Dropzone({ memoryImage, onChange }) {
   // Handle file drop.
 
   const onDrop = useCallback(
@@ -15,11 +13,7 @@ function Dropzone({ onChange }) {
       const reader = new FileReader();
       reader.onloadend = () => {
         const base64Data = reader.result; // Esto será "data:image/png;base64,...."
-        setPreview(base64Data);
-
-        if (onChange) {
-          onChange(base64Data); // lo mandamos al MemoryForm
-        }
+        onChange?.(base64Data); // lo mandamos al MemoryForm
       };
       reader.readAsDataURL(file);
     },
@@ -42,10 +36,10 @@ function Dropzone({ onChange }) {
         className="input input-bordered w-32 h-32 flex-none mr-4 flex items-center justify-center text-center text-sm cursor-pointer"
       >
         <input {...getInputProps()} />
-        {!preview ? (
+        {!memoryImage ? (
           <p>Upload Image</p>
         ) : (
-          <img src={preview} alt="preview" className="object-cover" />
+          <img src={memoryImage} alt="preview" className="object-cover" />
         )}
       </div>
     </div>
