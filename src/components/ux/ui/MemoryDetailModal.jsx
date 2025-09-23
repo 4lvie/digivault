@@ -1,7 +1,26 @@
+/**
+ * MemoryDetailModal Component
+ * Displays detailed information about a memory item in a modal.
+ * Uses Framer Motion for smooth animations.
+ *
+ * Props:
+ * - task: The memory item object containing details like name, description, image, location, and date.
+ * - onClose: Function to close the modal.
+ *
+ * @component
+ * @returns {JSX.Element} The rendered memory detail modal.
+ *
+ * @usage
+ * <MemoryDetailModal task={selectedTask} onClose={handleClose} />
+ *
+ * Note: Ensure that Framer Motion is installed in your project.
+ */
 import { motion, AnimatePresence } from "framer-motion";
 
 function MemoryDetailModal({ task, onClose }) {
+  // Render the modal only if a task is provided
   return (
+    // AnimatePresence for handling component mount/unmount animations
     <AnimatePresence>
       {task && (
         <motion.div
@@ -13,6 +32,7 @@ function MemoryDetailModal({ task, onClose }) {
           className="fixed inset-0 bg-black/60 flex items-center justify-center z-50"
         >
           <motion.div
+            // Modal container with animation
             key="modal"
             initial={{ scale: 0.9, opacity: 0, y: 50 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
@@ -44,7 +64,7 @@ function MemoryDetailModal({ task, onClose }) {
                 )}
               </div>
             </div>
-
+            {/* Details: Description, Location, Date */}
             <div className="bg-white rounded-xl shadow-md p-6 w-full md:w-3/4 space-y-4 text-gray-700">
               <p className="text-lg">
                 <strong className="text-blue-700">📖 Description:</strong>{" "}
