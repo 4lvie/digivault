@@ -98,8 +98,8 @@ Duplicate the `.env.example` and create your `.env` file:
 
 Check the `supabase` folder and:
 
-1. Create table as in `schema.sql` file.
-2. Create policies as in `policies.sql` file.
+1. Create table as in [`schema.sql`](src/supabase/schema.sql) file.
+2. Create policies as in [`policies.sql`](src/supabase/policies.sql) file.
 
 ```
 cp .env.example .env
