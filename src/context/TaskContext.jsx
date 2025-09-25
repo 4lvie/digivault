@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
 import { useState } from "react";
 import { client } from "../supabase/client";
-import { CONSTS } from "../constants/constants";
+import { CONSTS } from "../constants/Constants";
 
 export const TaskContext = createContext();
 
@@ -20,12 +20,12 @@ export const TaskProvider = ({ children }) => {
 
   // Fetch tasks from Supabase
 
-  const getTasks = async ({ tableName }) => {
+  const getTasks = async ({ tableName, fields }) => {
     setLoading(true);
     const userID = (await client.auth.getUser()).data.user.id;
     const { error, data } = await client
       .from(tableName)
-      .select()
+      .select(fields)
       .eq("user_uid", userID);
     if (error) {
       throw error;

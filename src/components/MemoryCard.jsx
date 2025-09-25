@@ -1,40 +1,32 @@
-import { useTask } from "../context/TaskContext";
-import { CONSTS } from "../constants/constants";
-import { useState } from "react";
+/**
+ * MemoryCard Component displays a single memory task as a card.
+ * Handles click events to view memory details.
+ *
+ * @component
+ * @returns {JSX.Element} The rendered memory card UI.
+ *
+ * @example
+ * <MemoryCard />
+ */
 
-function MemoryCard({ task }) {
-  const { deleteTask } = useTask();
-  const [deleting, setDeleting] = useState(false);
-
-  const handleDelete = async () => {
-    setDeleting(true);
-    await deleteTask({ tableName: CONSTS.MEMORIES_TEST, id: task.id });
-    setDeleting(false);
-  };
-
-  const toggleDone = () => {
-    alert("Toggle done " + task.item_name);
-  };
-
+function MemoryCard({ task, onClick }) {
+  // Render the memory card with image or placeholder text
   return (
-    <div>
-      <ul>
-        <li>
-          {task.id}, {task.item_name}
-        </li>
-      </ul>
-      <div className="space-x-2 space-y-2">
-        <button
-          className="btn btn-error"
-          onClick={handleDelete}
-          disabled={deleting}
-        >
-          {deleting ? "Deleting..." : "Delete"}
-        </button>
-        <button className="btn btn-edit" onClick={toggleDone}>
-          Edit
-        </button>
-      </div>
+    // Clickable card container
+    <div
+      onClick={() => onClick(task)}
+      className="sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 rounded-xl shadow-md border border-gray-200 flex items-center justify-center bg-white hover:shadow-lg transition cursor-pointer"
+    >
+      {task.item_image ? (
+        <img
+          src={task.item_image}
+          alt={task.item_name}
+          className="object-cover w-full h-full rounded-xl"
+        />
+      ) : (
+        // Placeholder text when no image is available
+        <span className="text-xs text-gray-400">No Image</span>
+      )}
     </div>
   );
 }

@@ -2,28 +2,24 @@ import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
 // Dropzone component for file uploads
-function Dropzone({ onChange }) {
-  const [preview, setPreview] = useState(null);
+function Dropzone({ memoryImage, onChange }) {
   // Handle file drop.
+
   const onDrop = useCallback(
     (acceptedFiles) => {
-      const firstFile = acceptedFiles[0];
+      const file = acceptedFiles[0];
+      if (!file) return;
+
       const reader = new FileReader();
-      // Event handlers for file reading.
-      reader.onabort = () => console.log("file reading was aborted");
-      reader.onerror = () => console.log("file reading has failed");
-      reader.onload = () => {
-        setPreview(reader.result);
+      reader.onloadend = () => {
+        const base64Data = reader.result; // Esto será "data:image/png;base64,...."
+        onChange?.(base64Data); // lo mandamos al MemoryForm
       };
-      // Callback to obtain image file in parent component.
-      if (onChange) {
-        onChange(firstFile);
-      }
-      // Read the file as a data URL.
-      reader.readAsDataURL(firstFile);
+      reader.readAsDataURL(file);
     },
     [onChange]
   );
+
   // Set up the dropzone with desired configurations.
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
@@ -40,10 +36,10 @@ function Dropzone({ onChange }) {
         className="input input-bordered w-32 h-32 flex-none mr-4 flex items-center justify-center text-center text-sm cursor-pointer"
       >
         <input {...getInputProps()} />
-        {!preview ? (
+        {!memoryImage ? (
           <p>Upload Image</p>
         ) : (
-          <img src={preview} alt="preview" className="object-cover" />
+          <img src={memoryImage} alt="preview" className="object-cover" />
         )}
       </div>
     </div>

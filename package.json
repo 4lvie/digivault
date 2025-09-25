@@ -13,6 +13,7 @@
     "@supabase/supabase-js": "^2.57.2",
     "@tailwindcss/vite": "^4.1.12",
     "leaflet": "^1.9.4",
+    "motion": "^12.23.18",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-dropzone": "^14.3.8",
