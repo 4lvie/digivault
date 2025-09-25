@@ -11,10 +11,18 @@
  *
  * Note: Ensure that the MemoryForm and MemoryList components are correctly implemented and imported.
  */
-import MemoryForm from "../components/ux/ui/MemoryForm.jsx";
+import MemoryForm from "../components/ux/MemoryForm.jsx";
 import MemoryList from "../components/MemoryList.jsx";
+import { useState } from "react";
 
 function ExploreVault() {
+  const [editMemory, setEditMemory] = useState(null);
+
+  const handleEditMemory = (memory) => {
+    setEditMemory(memory);
+    document.getElementById("memoryform").checked = true; // Open modal
+  };
+
   // Main container with gradient background and padding
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex flex-col items-center py-12 px-6">
@@ -35,12 +43,12 @@ function ExploreVault() {
           <h2 className="text-2xl font-semibold text-blue-700 mb-6">
             Add a New Memory
           </h2>
-          <MemoryForm />
+          <MemoryForm initialData={editMemory} />
         </section>
 
         {/* List section */}
         <section className="bg-blue-50 rounded-2xl shadow-lg p-8 border border-blue-100 space-y-6 sm:space-y-8 space-x-4">
-          <MemoryList />
+          <MemoryList onEdit={handleEditMemory} />
         </section>
       </main>
     </div>

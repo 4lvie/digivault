@@ -11,20 +11,27 @@
  * <MemoryForm />
  */
 import Dropzone from "./Dropzone";
-import { CONSTS } from "../../../constants/Constants";
+import { CONSTS } from "../../constants/Constants";
 import { useState } from "react";
-import { useTask } from "../../../context/TaskContext";
+import { useTask } from "../../context/TaskContext";
 
-function MemoryForm() {
+function MemoryForm({ initialData = null }) {
   // Form state variables
-  const [memoryName, setMemoryName] = useState("");
-  const [memoryDetails, setMemoryDetails] = useState("");
-  const [memoryDate, setMemoryDate] = useState("");
-  const [memoryLocation, setMemoryLocation] = useState("");
-  const [memoryImage, setMemoryImage] = useState("");
+  const [memoryName, setMemoryName] = useState(initialData?.item_name || "");
+  const [memoryDetails, setMemoryDetails] = useState(
+    initialData?.item_desc || ""
+  );
+  const [memoryDate, setMemoryDate] = useState(
+    initialData?.item_obtained_date || ""
+  );
+  const [memoryLocation, setMemoryLocation] = useState(
+    initialData?.item_location || ""
+  );
+  const [memoryImage, setMemoryImage] = useState(initialData?.item_image || "");
 
   // Context for task management
-  const { createMemory, adding } = useTask();
+  const { createMemory, updateMemory, adding } = useTask();
+  const [showToast, setShowToast] = useState(false);
 
   // Reset form fields
   const resetForm = () => {
@@ -46,8 +53,15 @@ function MemoryForm() {
       item_image: memoryImage ? await memoryImage : null,
     };
 
-    console.log(payload.item_image);
+    if (initialData && initialData.id) {
+      await updateMemory(initialData.id, payload);
+    } else {
+      await createMemory({ tableName: CONSTS.MEMORIES, payload });
+    }
+
     await createMemory({ tableName: CONSTS.MEMORIES, payload: payload });
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 3000);
     resetForm();
   };
 
@@ -138,6 +152,13 @@ function MemoryForm() {
               Close
             </label>
           </div>
+          {showToast && (
+            <div className="toast toast-center toast-middle">
+              <div className="alert alert-success">
+                <span>New memory saved</span>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
