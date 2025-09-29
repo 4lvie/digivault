@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { client } from "../supabase/client";
 
-function Login() {
+function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
@@ -12,21 +12,14 @@ function Login() {
     e.preventDefault();
     setErrorMsg("");
     try {
-      const { data, error } = await client.auth.signInWithPassword({
+      const { error } = await client.auth.signUp({
         email,
         password,
       });
-      if (error) {
-        setErrorMsg(error.message);
-        return;
-      }
-      if (data?.user && data.user.confirmed_at) {
-        navigate("/");
-      } else {
-        setErrorMsg("Please confirm your email before logging in.");
-      }
+      if (error) setErrorMsg(error.message);
+      else navigate("/login");
     } catch (error) {
-      setErrorMsg("Login failed. Please try again.");
+      setErrorMsg("Sign up failed. Please try again.");
     }
   };
 
@@ -41,10 +34,10 @@ function Login() {
   }, [navigate]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-100 to-green-300">
       <div className="card w-full max-w-md bg-white shadow-xl p-8 rounded-2xl">
-        <h2 className="text-3xl font-bold text-center text-blue-700 mb-6">
-          Sign In
+        <h2 className="text-3xl font-bold text-center text-green-700 mb-6">
+          Create Account
         </h2>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <input
@@ -64,7 +57,7 @@ function Login() {
             required
           />
           <button className="btn btn-info btn-block text-lg font-semibold mt-2">
-            Login
+            Sign Up
           </button>
           {errorMsg && (
             <div className="alert alert-error mt-2 py-2 px-4 text-sm">
@@ -73,12 +66,9 @@ function Login() {
           )}
         </form>
         <div className="mt-6 text-center text-gray-500 text-sm">
-          Don't have an account?{" "}
-          <span
-            className="text-blue-600 underline cursor-pointer"
-            onClick={() => navigate("/signup")}
-          >
-            Sign up
+          Already have an account?{" "}
+          <span className="text-blue-600 underline cursor-pointer">
+            Sign in
           </span>
         </div>
       </div>
@@ -86,4 +76,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default SignUp;
