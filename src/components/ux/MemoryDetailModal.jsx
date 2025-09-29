@@ -22,6 +22,7 @@ function MemoryDetailModal({ task, onClose, onEditDetail }) {
     if (onEditDetail) {
       onEditDetail(task);
     }
+    onClose(); // Close the detail modal
   };
 
   const onDelete = (task) => {

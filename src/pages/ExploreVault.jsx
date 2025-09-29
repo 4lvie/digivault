@@ -23,6 +23,11 @@ function ExploreVault() {
     document.getElementById("memoryform").checked = true; // Open modal
   };
 
+  // Handler to clear editMemory state when form is closed
+  const handleSetMemory = (memory) => {
+    setEditMemory(memory);
+  };
+
   // Main container with gradient background and padding
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex flex-col items-center py-12 px-6">
@@ -43,7 +48,7 @@ function ExploreVault() {
           <h2 className="text-2xl font-semibold text-blue-700 mb-6">
             Add a New Memory
           </h2>
-          <MemoryForm initialData={editMemory} />
+          <MemoryForm initialData={editMemory} onClose={handleSetMemory} />
         </section>
 
         {/* List section */}
