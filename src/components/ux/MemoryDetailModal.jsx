@@ -17,7 +17,26 @@
  */
 import { motion, AnimatePresence } from "framer-motion";
 
-function MemoryDetailModal({ task, onClose }) {
+function MemoryDetailModal({ task, onClose, onEditDetail }) {
+  const onEdit = () => {
+    if (onEditDetail) {
+      onEditDetail(task);
+    }
+    onClose(); // Close the detail modal
+  };
+
+  const onDelete = (task) => {
+    // Open the delete confirmation modal
+    const deleteConfirmCheckbox = document.getElementById("deleteconfirm");
+    if (deleteConfirmCheckbox) {
+      deleteConfirmCheckbox.checked = true;
+    }
+    // Pass the task data to the delete confirmation modal
+    const event = new CustomEvent("confirmDelete", { detail: task });
+    window.dispatchEvent(event);
+    onClose(); // Close the detail modal
+  };
+
   // Render the modal only if a task is provided
   return (
     // AnimatePresence for handling component mount/unmount animations
@@ -78,6 +97,15 @@ function MemoryDetailModal({ task, onClose }) {
                 <strong className="text-blue-700">📅 Date:</strong>{" "}
                 {task.item_obtained_date || "Unknown"}
               </p>
+            </div>
+            <div className="flex space-x-4 mt-6">
+              <button
+                className="px-6 py-3 bg-yellow-500 text-white rounded-xl shadow-md hover:bg-yellow-600 transition mt-4"
+                onClick={() => onEdit(task)} // callback to edit the memory
+              >
+                Edit Memory
+              </button>
+              {/* HERE GOES DELETE BUTTON*/}
             </div>
           </motion.div>
         </motion.div>

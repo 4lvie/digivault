@@ -26,7 +26,7 @@ src/
   components/
     MemoryCard.jsx         # Individual memory card
     MemoryList.jsx         # Memory grid
-    ux/ui/
+    ux/
       Drawer.jsx           # Sidebar menu
       Dropzone.jsx         # Image upload
       Layout.jsx           # Main layout

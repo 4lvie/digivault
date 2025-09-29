@@ -7,7 +7,7 @@ import Vault from "./pages/Vault";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import ExploreVault from "./pages/ExploreVault";
-import Layout from "./components/ux/ui/Layout";
+import Layout from "./components/ux/Layout";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { TaskProvider } from "./context/TaskContext";
