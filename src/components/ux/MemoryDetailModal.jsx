@@ -16,8 +16,14 @@
  * Note: Ensure that Framer Motion is installed in your project.
  */
 import { motion, AnimatePresence } from "framer-motion";
+import { useTask } from "../../context/TaskContext";
+import { useState } from "react";
+import { CONSTS } from "../../constants/Constants";
 
 function MemoryDetailModal({ task, onClose, onEditDetail }) {
+  const { deleteMemory } = useTask();
+  const [deleteConfirmed, setDeleteConfirmed] = useState(false);
+  // Handler for editing the memory
   const onEdit = () => {
     if (onEditDetail) {
       onEditDetail(task);
@@ -25,16 +31,19 @@ function MemoryDetailModal({ task, onClose, onEditDetail }) {
     onClose(); // Close the detail modal
   };
 
-  const onDelete = (task) => {
-    // Open the delete confirmation modal
-    const deleteConfirmCheckbox = document.getElementById("deleteconfirm");
-    if (deleteConfirmCheckbox) {
-      deleteConfirmCheckbox.checked = true;
-    }
-    // Pass the task data to the delete confirmation modal
-    const event = new CustomEvent("confirmDelete", { detail: task });
-    window.dispatchEvent(event);
-    onClose(); // Close the detail modal
+  // Handler for deleting the memory
+  const handleDelete = () => {
+    setDeleteConfirmed(true);
+  };
+
+  const confirmDelete = () => {
+    deleteMemory({ tableName: CONSTS.MEMORIES, id: task.id });
+    setDeleteConfirmed(false);
+    onClose();
+  };
+
+  const cancelDelete = () => {
+    setDeleteConfirmed(false);
   };
 
   // Render the modal only if a task is provided
@@ -105,8 +114,41 @@ function MemoryDetailModal({ task, onClose, onEditDetail }) {
               >
                 Edit Memory
               </button>
-              {/* HERE GOES DELETE BUTTON*/}
+              <button
+                className="px-6 py-3 bg-red-500 text-white rounded-xl shadow-md hover:bg-red-600 transition mt-4"
+                onClick={() => handleDelete(task)} // callback to delete the memory
+              >
+                Delete Memory
+              </button>
             </div>
+            {/* Confirm Delete Popup */}
+            {deleteConfirmed && (
+              <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-60">
+                <div className="bg-white rounded-xl shadow-lg p-8 flex flex-col items-center">
+                  <h3 className="text-xl font-bold text-red-600 mb-4">
+                    Confirm Deletion
+                  </h3>
+                  <p className="mb-6 text-gray-700 text-center">
+                    Are you sure you want to delete{" "}
+                    <span className="font-semibold">{task.item_name}</span>?
+                  </p>
+                  <div className="flex space-x-4">
+                    <button
+                      className="px-6 py-3 bg-red-500 text-white rounded-xl shadow-md hover:bg-red-700 transition"
+                      onClick={confirmDelete}
+                    >
+                      Yes, Delete
+                    </button>
+                    <button
+                      className="px-6 py-3 bg-gray-200 text-gray-900 rounded-xl shadow-md hover:bg-gray-400 transition"
+                      onClick={cancelDelete}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </motion.div>
         </motion.div>
       )}
