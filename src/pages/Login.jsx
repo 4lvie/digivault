@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { client } from "../supabase/client";
 
 function Login() {
@@ -74,12 +74,9 @@ function Login() {
         </form>
         <div className="mt-6 text-center text-gray-500 text-sm">
           Don't have an account?{" "}
-          <span
-            className="text-blue-600 underline cursor-pointer"
-            onClick={() => navigate("/signup")}
-          >
+          <Link to="/signup" className="text-blue-600 underline cursor-pointer">
             Sign up
-          </span>
+          </Link>
         </div>
       </div>
     </div>

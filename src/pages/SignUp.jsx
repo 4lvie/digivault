@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { client } from "../supabase/client";
 
 function SignUp() {
@@ -67,9 +67,9 @@ function SignUp() {
         </form>
         <div className="mt-6 text-center text-gray-500 text-sm">
           Already have an account?{" "}
-          <span className="text-blue-600 underline cursor-pointer">
+          <Link to="/login" className="text-blue-600 underline cursor-pointer">
             Sign in
-          </span>
+          </Link>
         </div>
       </div>
     </div>
