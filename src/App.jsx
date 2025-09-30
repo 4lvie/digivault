@@ -3,10 +3,6 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { client } from "./supabase/client";
 
-import Home from "./pages/Home";
-import Vault from "./pages/Vault";
-import ExploreVault from "./pages/ExploreVault";
-import Login from "./pages/Login";
 import "./App.css";
 
 function App() {
@@ -29,6 +25,7 @@ function App() {
         <Link to="/login"> Login </Link>
         <Link to="/vault"> Vault </Link>
         <Link to="/explorevault"> Explore Vault </Link>
+        <Link to="/profile"> Profile </Link>
       </nav>
       <Outlet />
     </>
