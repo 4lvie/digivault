@@ -2,6 +2,11 @@
 
 Digivault is a web application for managing and visualizing memories. It uses React, Tailwind CSS, DaisyUI, and Supabase as the backend.
 
+## 🚀 Public Deployment
+
+Try Digivault live at:
+**https://digivault-ten.vercel.app/**
+
 # 🌟 Features
 
 ✅ User authentication and login management
@@ -48,33 +53,43 @@ src/
     client.jsx             # Supabase configuration
 ```
 
-## ⚙️ Installation
+## ⚙️ Local Installation
 
-1. Clone the repository.
+Follow these steps to run Digivault locally:
 
-```
+1. **Clone the repository:**
+
+```bash
 git clone https://github.com/yourusername/digivault.git
 cd digivault
 ```
 
-2. Install dependencies:
+2. **Install dependencies:**
 
-```
+```bash
 npm install
 ```
 
-3. Set up the environment variables
+3. **Set up environment variables:**
+   Create a `.env.local` file in the root directory with your Supabase credentials:
 
-```
-cp .env.example .env.local
-```
-
-## Example `.env.local` file
-
-```
+```env
 VITE_SUPABASE_URL="https://your-project.supabase.co"
 VITE_SUPABASE_ANON_KEY="your_supabase_anon_key"
 ```
+
+4. **Set up Supabase backend:**
+
+- Check _Backend Setup (Supabase) section_
+
+5. **Start the development server:**
+
+```bash
+npm run dev
+```
+
+6. **Open the app:**
+   Visit `http://localhost:5173` in your browser.
 
 ## 🗄 Backend Setup (Supabase)
 
@@ -84,7 +99,7 @@ If you want to run this project locally or deploy it yourself, you’ll need you
 
 ### 1. Create a Supabase project
 
-1. Go to [https://supabase.com](https://supabase.com) and sign in.
+1. Go to [Supabase](https://supabase.com) and sign in.
 2. Create a new project.
 3. Copy your `Project URL` and `anon public key` from the Supabase dashboard:
    - `Settings` → `API` → `Project URL`
@@ -101,34 +116,6 @@ Check the `supabase` folder and:
 1. Create table as in [`schema.sql`](src/supabase/schema.sql) file.
 2. Create policies as in [`policies.sql`](src/supabase/policies.sql) file.
 
-```
+```bash
 cp .env.example .env
-```
-
-## 🚀 Usage
-
-1. Start the development server:
-
-   ```bash
-   npm run dev
-   ```
-
-2. Open `http://localhost:5173` in your browser.
-
-## Customization
-
-- Change styles in `App.css` or use Tailwind/DaisyUI classes.
-- Modify components in `src/components/` to adjust logic or design.
-- Configure tables and permissions in your Supabase project.
-
-## Main Dependencies
-
-- [React](https://react.dev/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [DaisyUI](https://daisyui.com/)
-- [Supabase](https://supabase.com/)
-- [Framer Motion](https://www.framer.com/motion/)
-
-```
-
 ```
