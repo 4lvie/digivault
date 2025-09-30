@@ -11,20 +11,38 @@
  * <MemoryForm />
  */
 import Dropzone from "./Dropzone";
-import { CONSTS } from "../../../constants/Constants";
-import { useState } from "react";
-import { useTask } from "../../../context/TaskContext";
+import { CONSTS } from "../../constants/Constants";
+import { useState, useEffect } from "react";
+import { useTask } from "../../context/TaskContext";
 
-function MemoryForm() {
+function MemoryForm({ initialData = null, onClose = null }) {
   // Form state variables
-  const [memoryName, setMemoryName] = useState("");
-  const [memoryDetails, setMemoryDetails] = useState("");
-  const [memoryDate, setMemoryDate] = useState("");
-  const [memoryLocation, setMemoryLocation] = useState("");
-  const [memoryImage, setMemoryImage] = useState("");
+  const [memoryName, setMemoryName] = useState(initialData?.item_name || "");
+  const [memoryDetails, setMemoryDetails] = useState(
+    initialData?.item_desc || ""
+  );
+  const [memoryDate, setMemoryDate] = useState(
+    initialData?.item_obtained_date || ""
+  );
+  const [memoryLocation, setMemoryLocation] = useState(
+    initialData?.item_location || ""
+  );
+  const [memoryImage, setMemoryImage] = useState(initialData?.item_image || "");
+
+  // Update form fields if initialData changes (for editing existing memory)
+  useEffect(() => {
+    if (initialData) {
+      setMemoryName(initialData.item_name || "");
+      setMemoryDetails(initialData.item_desc || "");
+      setMemoryDate(initialData.item_obtained_date || "");
+      setMemoryLocation(initialData.item_location || "");
+      setMemoryImage(initialData.item_image || "");
+    }
+  }, [initialData]);
 
   // Context for task management
-  const { createMemory, adding } = useTask();
+  const { createMemory, updateMemory, adding } = useTask();
+  const [showToast, setShowToast] = useState(false);
 
   // Reset form fields
   const resetForm = () => {
@@ -33,6 +51,7 @@ function MemoryForm() {
     setMemoryDate("");
     setMemoryImage(null);
     setMemoryLocation("");
+    onClose(null); // Notify parent to clear editMemory state
   };
 
   // Handle form submission
@@ -43,12 +62,25 @@ function MemoryForm() {
       item_location: memoryLocation,
       item_desc: memoryDetails,
       item_obtained_date: memoryDate,
-      item_image: memoryImage ? await memoryImage : null,
+      item_image: memoryImage,
     };
-
-    console.log(payload.item_image);
-    await createMemory({ tableName: CONSTS.MEMORIES, payload: payload });
+    if (initialData && initialData.id) {
+      await updateMemory({
+        tableName: CONSTS.MEMORIES,
+        id: initialData.id,
+        payload: payload,
+      });
+    } else {
+      await createMemory({ tableName: CONSTS.MEMORIES, payload: payload });
+    }
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 3000);
     resetForm();
+    document.getElementById("memoryform").checked = false; // Close modal
+
+    if (onClose) {
+      onClose(null); // Notify parent to clear editMemory state
+    }
   };
 
   return (
@@ -67,7 +99,10 @@ function MemoryForm() {
       <div className="modal">
         <div className="modal-box">
           {/* Form title */}
-          <h3 className="font-bold text-lg">New Memory</h3>
+          <h3 className="font-bold text-2xl mb-2 text-center text-blue-800">
+            {initialData ? "Edit Memory" : "Add New Memory"}
+          </h3>
+          {/* Memory form */}
           <form className="space-y-2 mt-4">
             <div className="flex space-y-0 md:space-y-0 md:space-x-4">
               {/* Dropzone for image upload */}
@@ -127,7 +162,13 @@ function MemoryForm() {
               onClick={saveMemory}
               disabled={adding}
             >
-              {adding ? "Adding Memory..." : "Add Memory"}
+              {initialData
+                ? adding
+                  ? "Updating..."
+                  : "Update Memory"
+                : adding
+                ? "Adding..."
+                : "Add Memory"}
             </button>
             <label
               // Close button
@@ -138,6 +179,13 @@ function MemoryForm() {
               Close
             </label>
           </div>
+          {showToast && (
+            <div className="toast toast-center toast-middle">
+              <div className="alert alert-success">
+                <span>New memory saved</span>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

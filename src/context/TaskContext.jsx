@@ -62,7 +62,7 @@ export const TaskProvider = ({ children }) => {
     }
   };
 
-  const deleteTask = async ({ tableName, id }) => {
+  const deleteMemory = async ({ tableName, id }) => {
     try {
       const userID = (await client.auth.getUser()).data.user.id;
       const { data, error } = await client
@@ -83,9 +83,40 @@ export const TaskProvider = ({ children }) => {
     }
   };
 
+  const updateMemory = async ({ tableName, id, payload }) => {
+    try {
+      setAdding(true);
+      const userID = (await client.auth.getUser()).data.user.id;
+      const { data, error } = await client
+        .from(tableName)
+        .update(payload)
+        .eq("id", id)
+        .eq("user_uid", userID)
+        .select();
+      if (error) {
+        throw error;
+      }
+      if (data) {
+        setTasks(tasks.map((task) => (task.id === id ? data[0] : task)));
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setAdding(false);
+    }
+  };
+
   return (
     <TaskContext.Provider
-      value={{ tasks, adding, loading, getTasks, createMemory, deleteTask }}
+      value={{
+        tasks,
+        adding,
+        loading,
+        getTasks,
+        createMemory,
+        deleteMemory,
+        updateMemory,
+      }}
     >
       {children}
     </TaskContext.Provider>

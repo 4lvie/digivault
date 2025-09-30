@@ -13,9 +13,9 @@ import { useTask } from "../context/TaskContext.jsx";
 import { useEffect, useState } from "react";
 import { CONSTS } from "../constants/Constants.jsx";
 import MemoryCard from "./MemoryCard.jsx";
-import MemoryDetailModal from "./ux/ui/MemoryDetailModal.jsx";
+import MemoryDetailModal from "./ux/MemoryDetailModal.jsx";
 
-function MemoryList() {
+function MemoryList({ onEdit }) {
   // Fetch tasks from context
   const { tasks, getTasks, loading } = useTask();
   const [selectedTask, setSelectedTask] = useState(null);
@@ -55,6 +55,7 @@ function MemoryList() {
           task={selectedTask}
           // Close modal handler
           onClose={() => setSelectedTask(null)}
+          onEditDetail={onEdit}
         />
       )}
     </div>
