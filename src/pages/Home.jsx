@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { client } from "../supabase/client";
 import { useNavigate } from "react-router-dom";
+import Button from "../components/ui/Button";
 
 function Home() {
   const navigate = useNavigate();
@@ -28,10 +29,9 @@ function Home() {
   return (
     <div className="space-y-4">
       <h1 className="text-2xl">Home</h1>
-      <button className="btn btn-info" onClick={handleSignOut}>
-        {" "}
-        Sign Out{" "}
-      </button>
+      <Button variant="info" onClick={handleSignOut}>
+        Sign Out
+      </Button>
     </div>
   );
 }

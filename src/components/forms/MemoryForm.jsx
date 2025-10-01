@@ -14,6 +14,7 @@ import Dropzone from "./Dropzone";
 import { CONSTS } from "../../constants/Constants";
 import { useState, useEffect } from "react";
 import { useTask } from "../../context/TaskContext";
+import Button from "../ui/Button";
 
 function MemoryForm({ initialData = null, onClose = null }) {
   // Form state variables
@@ -91,7 +92,7 @@ function MemoryForm({ initialData = null, onClose = null }) {
         htmlFor="memoryform"
         className="px-6 py-3 bg-blue-600 text-white rounded-xl shadow-md hover:bg-blue-700 transition"
       >
-        New Item
+        New Memory
       </label>
 
       {/* Modal structure */}
@@ -155,12 +156,12 @@ function MemoryForm({ initialData = null, onClose = null }) {
             </fieldset>
           </div>
           {/* Modal action buttons */}
-          <div className="modal-action">
-            <button
-              // Add Memory button
-              className="px-6 py-3 bg-blue-600 text-white rounded-xl shadow-md hover:bg-blue-700 transition space-y-2 w-full"
+          <div className="modal-action flex">
+            <Button
+              variant="primary"
+              className="px-6 py-3 flex-1"
               onClick={saveMemory}
-              disabled={adding}
+              isDisabled={adding}
             >
               {initialData
                 ? adding
@@ -169,11 +170,11 @@ function MemoryForm({ initialData = null, onClose = null }) {
                 : adding
                 ? "Adding..."
                 : "Add Memory"}
-            </button>
+            </Button>
             <label
               // Close button
               htmlFor="memoryform"
-              className="px-6 py-3 bg-gray-400 text-white rounded-xl shadow-md hover:bg-gray-700 transition"
+              className="btn px-6 py-3 flex-none"
               onClick={resetForm}
             >
               Close

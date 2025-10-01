@@ -19,6 +19,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useTask } from "../../context/TaskContext";
 import { useState } from "react";
 import { CONSTS } from "../../constants/Constants";
+import Button from "../ui/Button";
 
 function MemoryDetailModal({ task, onClose, onEditDetail }) {
   const { deleteMemory } = useTask();
@@ -69,12 +70,14 @@ function MemoryDetailModal({ task, onClose, onEditDetail }) {
             className="relative bg-gradient-to-br from-blue-50 to-white rounded-3xl shadow-2xl w-11/12 md:w-4/5 lg:w-3/4 xl:w-2/3 h-[85vh] flex flex-col items-center p-8 overflow-y-auto"
           >
             {/* Close button */}
-            <button
+            <Button
+              variant="ghost"
               onClick={onClose}
-              className="absolute top-4 right-4 text-gray-600 hover:text-gray-900 text-2xl font-bold"
+              className="absolute top-4 right-4"
             >
               ✕
-            </button>
+            </Button>
+
             <h2 className="text-4xl font-extrabold text-blue-800 mb-6 text-center">
               {task.item_name || "Untitled"}
             </h2>
@@ -108,18 +111,20 @@ function MemoryDetailModal({ task, onClose, onEditDetail }) {
               </p>
             </div>
             <div className="flex space-x-4 mt-6">
-              <button
-                className="px-6 py-3 bg-yellow-500 text-white rounded-xl shadow-md hover:bg-yellow-600 transition mt-4"
-                onClick={() => onEdit(task)} // callback to edit the memory
+              <Button
+                variant="primary"
+                onClick={() => onEdit(task)}
+                className="px-6 py-3 mt-4"
               >
                 Edit Memory
-              </button>
-              <button
-                className="px-6 py-3 bg-red-500 text-white rounded-xl shadow-md hover:bg-red-600 transition mt-4"
+              </Button>
+              <Button
+                variant="secondary"
+                className="px-6 py-3 mt-4"
                 onClick={() => handleDelete(task)} // callback to delete the memory
               >
                 Delete Memory
-              </button>
+              </Button>
             </div>
             {/* Confirm Delete Popup */}
             {deleteConfirmed && (
@@ -133,18 +138,20 @@ function MemoryDetailModal({ task, onClose, onEditDetail }) {
                     <span className="font-semibold">{task.item_name}</span>?
                   </p>
                   <div className="flex space-x-4">
-                    <button
-                      className="px-6 py-3 bg-red-500 text-white rounded-xl shadow-md hover:bg-red-700 transition"
+                    <Button
+                      variant="error"
                       onClick={confirmDelete}
+                      className="px-6 py-3"
                     >
                       Yes, Delete
-                    </button>
-                    <button
-                      className="px-6 py-3 bg-gray-200 text-gray-900 rounded-xl shadow-md hover:bg-gray-400 transition"
+                    </Button>
+                    <Button
+                      variant="ghost"
                       onClick={cancelDelete}
+                      className="px-6 py-3"
                     >
                       Cancel
-                    </button>
+                    </Button>
                   </div>
                 </div>
               </div>

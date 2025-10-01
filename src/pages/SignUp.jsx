@@ -56,9 +56,14 @@ function SignUp() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button className="btn btn-info btn-block text-lg font-semibold mt-2">
+          <Button
+            variant="info"
+            type="submit"
+            isWide={true}
+            className="px-6 py-3"
+          >
             Sign Up
-          </button>
+          </Button>
           {errorMsg && (
             <div className="alert alert-error mt-2 py-2 px-4 text-sm">
               {errorMsg}

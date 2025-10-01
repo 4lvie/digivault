@@ -11,8 +11,8 @@
  *
  * Note: Ensure that the MemoryForm and MemoryList components are correctly implemented and imported.
  */
-import MemoryForm from "../components/ux/MemoryForm.jsx";
-import MemoryList from "../components/MemoryList.jsx";
+import MemoryForm from "../components/forms/MemoryForm.jsx";
+import MemoryList from "../components/visualizers/MemoryList.jsx";
 import { useState } from "react";
 
 function ExploreVault() {

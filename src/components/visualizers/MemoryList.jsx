@@ -9,11 +9,11 @@
  * @example
  * <MemoryList />
  */
-import { useTask } from "../context/TaskContext.jsx";
+import { useTask } from "../../context/TaskContext.jsx";
 import { useEffect, useState } from "react";
-import { CONSTS } from "../constants/Constants.jsx";
-import MemoryCard from "./MemoryCard.jsx";
-import MemoryDetailModal from "./ux/MemoryDetailModal.jsx";
+import { CONSTS } from "../../constants/Constants.jsx";
+import MemoryCard from "../ui/MemoryCard.jsx";
+import MemoryDetailModal from "../forms/MemoryDetailModal.jsx";
 
 function MemoryList({ onEdit }) {
   // Fetch tasks from context

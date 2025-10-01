@@ -8,7 +8,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
-import Layout from "./components/ux/Layout";
+import Layout from "./components/ui/Layout";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { TaskProvider } from "./context/TaskContext";

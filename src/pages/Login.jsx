@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { client } from "../supabase/client";
+import Button from "../components/ui/Button";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -58,15 +59,20 @@ function Login() {
           />
           <input
             type="password"
-            placeholder="your-password"
+            placeholder="your password"
             className="input input-bordered input-info w-full"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button className="btn btn-info btn-block text-lg font-semibold mt-2">
+          <Button
+            variant="info"
+            type="submit"
+            isWide={true}
+            className="px-6 py-3"
+          >
             Login
-          </button>
+          </Button>
           {errorMsg && (
             <div className="alert alert-error mt-2 py-2 px-4 text-sm">
               {errorMsg}
