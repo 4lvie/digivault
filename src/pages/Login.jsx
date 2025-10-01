@@ -15,6 +15,7 @@ function Login() {
       const { data, error } = await client.auth.signInWithPassword({
         email,
         password,
+        options: { redirectTo: window.location.origin },
       });
       if (error) {
         setErrorMsg(error.message);
