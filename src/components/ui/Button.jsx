@@ -4,7 +4,7 @@ function Button(props) {
   return (
     <button
       onClick={props.onClick}
-      className={getButtonProps(props)}
+      className={getButtonProps(props).className}
       disabled={props.isDisabled || props.isLoading}
     >
       {props.isLoading ? (

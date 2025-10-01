@@ -15,6 +15,7 @@ import { CONSTS } from "../../constants/Constants";
 import { useState, useEffect } from "react";
 import { useTask } from "../../context/TaskContext";
 import Button from "../ui/Button";
+import LabelButton from "../ui/LabelButton";
 
 function MemoryForm({ initialData = null, onClose = null }) {
   // Form state variables
@@ -87,13 +88,10 @@ function MemoryForm({ initialData = null, onClose = null }) {
   return (
     // Main container
     <div>
-      {/* Button to open modal */}
-      <label
-        htmlFor="memoryform"
-        className="px-6 py-3 bg-blue-600 text-white rounded-xl shadow-md hover:bg-blue-700 transition"
-      >
+      {/* Label to open modal */}
+      <LabelButton htmlFor="memoryform" variant="primary" className="px-6 py-3">
         New Memory
-      </label>
+      </LabelButton>
 
       {/* Modal structure */}
       <input type="checkbox" id="memoryform" className="modal-toggle" />
@@ -171,14 +169,13 @@ function MemoryForm({ initialData = null, onClose = null }) {
                 ? "Adding..."
                 : "Add Memory"}
             </Button>
-            <label
-              // Close button
+            <LabelButton
               htmlFor="memoryform"
-              className="btn px-6 py-3 flex-none"
+              className="py-3 flex-none"
               onClick={resetForm}
             >
-              Close
-            </label>
+              Cancel
+            </LabelButton>
           </div>
           {showToast && (
             <div className="toast toast-center toast-middle">

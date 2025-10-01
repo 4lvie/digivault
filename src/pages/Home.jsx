@@ -29,7 +29,7 @@ function Home() {
   return (
     <div className="space-y-4">
       <h1 className="text-2xl">Home</h1>
-      <Button variant="info" onClick={handleSignOut}>
+      <Button variant="primary" onClick={handleSignOut}>
         Sign Out
       </Button>
     </div>

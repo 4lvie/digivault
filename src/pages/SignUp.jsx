@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { client } from "../supabase/client";
+import Button from "../components/ui/Button";
 
 function SignUp() {
   const [email, setEmail] = useState("");
@@ -56,12 +57,7 @@ function SignUp() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <Button
-            variant="info"
-            type="submit"
-            isWide={true}
-            className="px-6 py-3"
-          >
+          <Button variant="primary" type="submit" className="px-6 py-3 flex-1">
             Sign Up
           </Button>
           {errorMsg && (
@@ -72,7 +68,7 @@ function SignUp() {
         </form>
         <div className="mt-6 text-center text-gray-500 text-sm">
           Already have an account?{" "}
-          <Link to="/login" className="text-blue-600 underline cursor-pointer">
+          <Link to="/login" className="link link-primary">
             Sign in
           </Link>
         </div>

@@ -21,16 +21,14 @@ const types = {
 };
 
 export function getButtonProps({
-  variant = "primary",
+  variant = null,
   type = null,
   isWide = false,
-  // isLoading = false,
-  // isDisabled = false,
   className = "",
 }) {
   return {
-    className: `btn ${variants[variant]} ${type ? `${types[type]}` : ""} ${
-      isWide ? `btn-wide` : ""
-    } ${className}`,
+    className: `btn ${variant ? variants[variant] : ""} ${
+      type ? `${types[type]}` : ""
+    } ${isWide ? `btn-wide` : ""} ${className}`.trim(),
   };
 }

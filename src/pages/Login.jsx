@@ -65,12 +65,7 @@ function Login() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <Button
-            variant="info"
-            type="submit"
-            isWide={true}
-            className="px-6 py-3"
-          >
+          <Button variant="primary" type="submit" className="px-6 py-3 flex-1">
             Login
           </Button>
           {errorMsg && (
@@ -81,7 +76,7 @@ function Login() {
         </form>
         <div className="mt-6 text-center text-gray-500 text-sm">
           Don't have an account?{" "}
-          <Link to="/signup" className="text-blue-600 underline cursor-pointer">
+          <Link to="/signup" className="link link-primary">
             Sign up
           </Link>
         </div>

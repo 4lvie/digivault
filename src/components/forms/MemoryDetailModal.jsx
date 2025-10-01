@@ -71,9 +71,9 @@ function MemoryDetailModal({ task, onClose, onEditDetail }) {
           >
             {/* Close button */}
             <Button
-              variant="ghost"
               onClick={onClose}
               className="absolute top-4 right-4"
+              variant="ghost"
             >
               ✕
             </Button>
@@ -145,11 +145,7 @@ function MemoryDetailModal({ task, onClose, onEditDetail }) {
                     >
                       Yes, Delete
                     </Button>
-                    <Button
-                      variant="ghost"
-                      onClick={cancelDelete}
-                      className="px-6 py-3"
-                    >
+                    <Button onClick={cancelDelete} className="px-6 py-3">
                       Cancel
                     </Button>
                   </div>
