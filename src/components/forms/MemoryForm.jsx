@@ -16,6 +16,9 @@ import { useState, useEffect } from "react";
 import { useTask } from "../../context/TaskContext";
 import Button from "../ui/Button";
 import LabelButton from "../ui/LabelButton";
+import Modal from "../ui/Modal";
+
+const MODAL_ID = "memoryform";
 
 function MemoryForm({ initialData = null, onClose = null }) {
   // Form state variables
@@ -78,7 +81,7 @@ function MemoryForm({ initialData = null, onClose = null }) {
     setShowToast(true);
     setTimeout(() => setShowToast(false), 3000);
     resetForm();
-    document.getElementById("memoryform").checked = false; // Close modal
+    document.getElementById(MODAL_ID).close();
 
     if (onClose) {
       onClose(null); // Notify parent to clear editMemory state
@@ -89,14 +92,12 @@ function MemoryForm({ initialData = null, onClose = null }) {
     // Main container
     <div>
       {/* Label to open modal */}
-      <LabelButton htmlFor="memoryform" variant="primary" className="px-6 py-3">
+      <Button onClick={() => document.getElementById(MODAL_ID).showModal()} variant="primary" className="px-6 py-3">
         New Memory
-      </LabelButton>
+      </Button>
 
       {/* Modal structure */}
-      <input type="checkbox" id="memoryform" className="modal-toggle" />
-      <div className="modal">
-        <div className="modal-box">
+      <Modal onClose={resetForm} id={MODAL_ID}>
           {/* Form title */}
           <h3 className="font-bold text-2xl mb-2 text-center text-blue-800">
             {initialData ? "Edit Memory" : "Add New Memory"}
@@ -169,13 +170,15 @@ function MemoryForm({ initialData = null, onClose = null }) {
                 ? "Adding..."
                 : "Add Memory"}
             </Button>
-            <LabelButton
-              htmlFor="memoryform"
+            <Button
               className="py-3 flex-none"
-              onClick={resetForm}
+              onClick={() => {
+                document.getElementById(MODAL_ID).close();
+                resetForm();
+              }}
             >
               Cancel
-            </LabelButton>
+            </Button>
           </div>
           {showToast && (
             <div className="toast toast-center toast-middle">
@@ -184,8 +187,7 @@ function MemoryForm({ initialData = null, onClose = null }) {
               </div>
             </div>
           )}
-        </div>
-      </div>
+      </Modal>
     </div>
   );
 }

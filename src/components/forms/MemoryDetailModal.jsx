@@ -16,15 +16,18 @@
  * Note: Ensure that Framer Motion is installed in your project.
  */
 import { useTask } from "../../context/TaskContext";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CONSTS } from "../../constants/Constants";
 import Button from "../ui/Button";
 import Card from "../ui/Card";
 import Modal from "../ui/Modal";
 
+const MODAL_ID = "memory-detail-modal";
+
 function MemoryDetailModal({ task, onClose, onEditDetail }) {
+  const deleteModal = useRef(null);
+
   const { deleteMemory } = useTask();
-  const [deleteConfirmed, setDeleteConfirmed] = useState(false);
   // Handler for editing the memory
   const onEdit = () => {
     if (onEditDetail) {
@@ -35,23 +38,35 @@ function MemoryDetailModal({ task, onClose, onEditDetail }) {
 
   // Handler for deleting the memory
   const handleDelete = () => {
-    setDeleteConfirmed(true);
+    deleteModal.current.showModal();
   };
 
   const confirmDelete = () => {
     deleteMemory({ tableName: CONSTS.MEMORIES, id: task.id });
-    setDeleteConfirmed(false);
+    if (deleteModal.current) {
+      deleteModal.current.close();
+    }
     onClose();
   };
 
   const cancelDelete = () => {
-    setDeleteConfirmed(false);
+    deleteModal.current.close();
   };
+
+  useEffect(() => {
+    const modal = document.getElementById(MODAL_ID);
+
+    if (task) {
+      modal.showModal();
+    } else {
+      modal.close();
+    }
+  }, [task]);
 
   // Render the modal only if a task is provided
   return (
-    // AnimatePresence for handling component mount/unmount animations
-      <Modal open={Boolean(task)} onClose={onClose} containerClassName="w-11/12 md:w-4/5 lg:w-3/4 xl:w-2/3 h-[85vh]">
+    <>
+      <Modal id={MODAL_ID} onClose={onClose} containerClassName="max-w-4xl flex flex-col justify-center items-center">
             <h2 className="text-4xl font-extrabold text-blue-800 mb-6 text-center">
               {task.item_name || "Untitled"}
             </h2>
@@ -95,38 +110,37 @@ function MemoryDetailModal({ task, onClose, onEditDetail }) {
               <Button
                 variant="secondary"
                 className="px-6 py-3 mt-4"
-                onClick={() => handleDelete(task)} // callback to delete the memory
+                onClick={() => handleDelete()} // callback to delete the memory
               >
                 Delete Memory
               </Button>
             </div>
-            {/* Confirm Delete Popup */}
-            {deleteConfirmed && (
-              <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-60">
-                <div className="bg-white rounded-xl shadow-lg p-8 flex flex-col items-center">
-                  <h3 className="text-xl font-bold text-red-600 mb-4">
-                    Confirm Deletion
-                  </h3>
-                  <p className="mb-6 text-gray-700 text-center">
-                    Are you sure you want to delete{" "}
-                    <span className="font-semibold">{task.item_name}</span>?
-                  </p>
-                  <div className="flex space-x-4">
-                    <Button
-                      variant="error"
-                      onClick={confirmDelete}
-                      className="px-6 py-3"
-                    >
-                      Yes, Delete
-                    </Button>
-                    <Button onClick={cancelDelete} className="px-6 py-3">
-                      Cancel
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            )}
       </Modal>
+      {/* Confirm Delete Popup */}
+      <Modal ref={deleteModal} onClose={cancelDelete} containerClassName="max-w-lg flex flex-col justify-center items-center">
+        <div className="flex flex-col items-center">
+          <h3 className="text-xl font-bold text-red-600 mb-4">
+            Confirm Deletion
+          </h3>
+          <p className="mb-6 text-gray-700 text-center">
+            Are you sure you want to delete{" "}
+            <span className="font-semibold">{task.item_name}</span>?
+          </p>
+          <div className="flex space-x-4">
+            <Button
+              variant="error"
+              onClick={confirmDelete}
+              className="px-6 py-3"
+            >
+              Yes, Delete
+            </Button>
+            <Button onClick={cancelDelete} className="px-6 py-3">
+              Cancel
+            </Button>
+          </div>
+        </div>
+      </Modal>
+    </>
   );
 }
 

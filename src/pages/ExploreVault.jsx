@@ -21,7 +21,7 @@ function ExploreVault() {
 
   const handleEditMemory = (memory) => {
     setEditMemory(memory);
-    document.getElementById("memoryform").checked = true; // Open modal
+    document.getElementById("memoryform").showModal(); // Open modal
   };
 
   // Handler to clear editMemory state when form is closed
