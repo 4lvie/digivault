@@ -2,9 +2,11 @@ import { useEffect } from "react";
 import { client } from "../supabase/client";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/ui/Button";
+import { useAuth } from "../context/AuthContext";
 
 function Home() {
   const navigate = useNavigate();
+  const user = useAuth();
 
   useEffect(() => {
     const checkUser = async () => {
@@ -28,7 +30,7 @@ function Home() {
 
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl">Home</h1>
+      <h1 className="text-2xl">Welcome {user?.user_metadata.name}</h1>
       <Button variant="primary" onClick={handleSignOut}>
         Sign Out
       </Button>

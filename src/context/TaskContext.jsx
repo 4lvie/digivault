@@ -1,7 +1,6 @@
 import { createContext, useContext } from "react";
 import { useState } from "react";
 import { client } from "../supabase/client";
-import { CONSTS } from "../constants/Constants";
 
 export const TaskContext = createContext();
 
