@@ -20,6 +20,7 @@ import { useTask } from "../../context/TaskContext";
 import { useState } from "react";
 import { CONSTS } from "../../constants/Constants";
 import Button from "../ui/Button";
+import Card from "../ui/Card";
 
 function MemoryDetailModal({ task, onClose, onEditDetail }) {
   const { deleteMemory } = useTask();
@@ -96,7 +97,7 @@ function MemoryDetailModal({ task, onClose, onEditDetail }) {
               </div>
             </div>
             {/* Details: Description, Location, Date */}
-            <div className="bg-white rounded-xl shadow-md p-6 w-full md:w-3/4 space-y-4 text-gray-700">
+            <Card shadow="md" className="bg-white p-6 w-full md:w-3/4 space-y-4 text-gray-700">
               <p className="text-lg">
                 <strong className="text-blue-700">📖 Description:</strong>{" "}
                 {task.item_desc || "No description available"}
@@ -109,7 +110,7 @@ function MemoryDetailModal({ task, onClose, onEditDetail }) {
                 <strong className="text-blue-700">📅 Date:</strong>{" "}
                 {task.item_obtained_date || "Unknown"}
               </p>
-            </div>
+            </Card>
             <div className="flex space-x-4 mt-6">
               <Button
                 variant="primary"

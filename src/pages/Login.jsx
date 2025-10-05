@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { client } from "../supabase/client";
 import Button from "../components/ui/Button";
+import Card from "../components/ui/Card";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -44,7 +45,7 @@ function Login() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300">
-      <div className="card w-full max-w-md bg-white shadow-xl p-8 rounded-2xl">
+      <Card className="bg-white w-full max-w-md p-8">
         <h2 className="text-3xl font-bold text-center text-blue-700 mb-6">
           Sign In
         </h2>
@@ -80,7 +81,7 @@ function Login() {
             Sign up
           </Link>
         </div>
-      </div>
+      </Card>
     </div>
   );
 }

@@ -12,6 +12,7 @@
  * Note: Ensure that the MemoryForm and MemoryList components are correctly implemented and imported.
  */
 import MemoryForm from "../components/forms/MemoryForm.jsx";
+import Card from "../components/ui/Card.jsx";
 import MemoryList from "../components/visualizers/MemoryList.jsx";
 import { useState } from "react";
 
@@ -44,17 +45,17 @@ function ExploreVault() {
       {/* Main content */}
       <main className="w-full max-w-6xl space-y-10">
         {/* Form section */}
-        <section className="bg-white rounded-2xl shadow-lg p-8 border border-blue-100">
+        <Card className="p-8 bg-white border border-blue-100">
           <h2 className="text-2xl font-semibold text-blue-700 mb-6">
             Add a New Memory
           </h2>
           <MemoryForm initialData={editMemory} onClose={handleSetMemory} />
-        </section>
+        </Card>
 
         {/* List section */}
-        <section className="bg-blue-50 rounded-2xl shadow-lg p-8 border border-blue-100 space-y-6 sm:space-y-8 space-x-4">
+        <Card className="bg-blue-50 shadow-lg p-8 border border-blue-100 space-y-6 sm:space-y-8 space-x-4">
           <MemoryList onEdit={handleEditMemory} />
-        </section>
+        </Card>
       </main>
     </div>
   );
