@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
 // Dropzone component for file uploads
-function Dropzone({ memoryImage, onChange }) {
+function Dropzone({ memoryImage, onChange, required = false }) {
   // Handle file drop.
 
   const onDrop = useCallback(
@@ -35,7 +35,7 @@ function Dropzone({ memoryImage, onChange }) {
         // Styling for the dropzone
         className="input input-bordered w-32 h-32 flex-none mr-4 flex items-center justify-center text-center text-sm cursor-pointer"
       >
-        <input {...getInputProps()} />
+        <input {...getInputProps()} required={required} />
         {!memoryImage ? (
           <p>Upload Image</p>
         ) : (

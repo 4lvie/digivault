@@ -60,9 +60,13 @@ function MemoryForm({ initialData = null, onClose = null }) {
     onClose(null); // Notify parent to clear editMemory state
   };
 
+  const isFormValid = memoryName && memoryDetails && memoryDate && memoryLocation;
+
   // Handle form submission
   const saveMemory = async (e) => {
     e.preventDefault();
+
+    if (!isFormValid) return;
     const payload = {
       item_name: memoryName,
       item_location: memoryLocation,
@@ -118,6 +122,7 @@ function MemoryForm({ initialData = null, onClose = null }) {
                   className="input input-bordered w-full"
                   value={memoryName}
                   onChange={(e) => setMemoryName(e.target.value)}
+                  required
                 />
                 <textarea
                   // Memory Details
@@ -125,6 +130,7 @@ function MemoryForm({ initialData = null, onClose = null }) {
                   className="textarea textarea-bordered"
                   value={memoryDetails}
                   onChange={(e) => setMemoryDetails(e.target.value)}
+                  required
                 ></textarea>
               </div>
             </div>
@@ -140,6 +146,7 @@ function MemoryForm({ initialData = null, onClose = null }) {
                 className="input input-bordered w-full"
                 value={memoryLocation}
                 onChange={(e) => setMemoryLocation(e.target.value)}
+                required
               />
             </fieldset>
           </div>
@@ -152,6 +159,7 @@ function MemoryForm({ initialData = null, onClose = null }) {
                 className="input w-full"
                 value={memoryDate}
                 onChange={(e) => setMemoryDate(e.target.value)}
+                required
               />
             </fieldset>
           </div>
@@ -161,7 +169,8 @@ function MemoryForm({ initialData = null, onClose = null }) {
               variant="primary"
               className="px-6 py-3 flex-1"
               onClick={saveMemory}
-              isDisabled={adding}
+              isLoading={adding}
+              isDisabled={!isFormValid}
             >
               {initialData
                 ? adding
