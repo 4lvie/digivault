@@ -3,12 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { client } from "../supabase/client";
 import Button from "../components/ui/Button";
 import Card from "../components/ui/Card";
+import { useAuth } from "../context/AuthContext";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const navigate = useNavigate();
+  const user = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,14 +36,10 @@ function Login() {
   };
 
   useEffect(() => {
-    const checkUser = async () => {
-      const { data } = await client.auth.getUser();
-      if (data?.user) {
-        navigate("/");
-      }
-    };
-    checkUser();
-  }, [navigate]);
+    if (user) {
+      navigate('/')
+    }
+  }, [navigate, user]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300">
