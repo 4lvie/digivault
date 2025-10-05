@@ -6,20 +6,35 @@ import SignUp from "./pages/SignUp";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 import Layout from "./components/ui/Layout";
+import UserGranted from "./components/utils/UserGranted";
 import "./App.css";
 
 function App() {
   return (
     <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="explorevault" element={<ExploreVault />} />
-          <Route path="login" element={<Login />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="signup" element={<SignUp />} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
-      </Routes>
+      <Route element={<Layout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="login" element={<Login />} />
+        <Route path="signup" element={<SignUp />} />
+        <Route path="*" element={<NotFound />} />
+        <Route
+          path="explorevault"
+          element={
+            <UserGranted>
+              <ExploreVault />
+            </UserGranted>
+          }
+        />
+        <Route
+          path="profile"
+          element={
+            <UserGranted>
+              <Profile />
+            </UserGranted>
+          }
+        />
+      </Route>
+    </Routes>
   );
 }
 
