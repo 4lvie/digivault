@@ -13,6 +13,10 @@ function Profile() {
   const user = useAuth();
   const [editing, setEditing] = useState(false);
 
+  const handleSignOut = async () => {
+    await client.auth.signOut();
+  };
+
   if (!user) {
     throw new Error("User is necessary");
   }
@@ -54,9 +58,14 @@ function Profile() {
           <input type="checkbox" disabled checked={phone_verified} />
         </p>
       </div>
-      <Button onClick={() => setEditing(true)} className="mb-2">
-        Edit Profile
-      </Button>
+      <div className="flex justify-around gap-2">
+        <Button onClick={() => setEditing(true)} className="mb-2">
+          Edit Profile
+        </Button>
+        <Button variant="error" onClick={handleSignOut}>
+          Sign Out
+        </Button>
+      </div>
       {editing && (
         <ProfileForm
           initialData={{ name, surname, email, phone, avatar_url }}
