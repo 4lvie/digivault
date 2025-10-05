@@ -32,47 +32,54 @@ function Profile() {
   } = user.user_metadata || {};
 
   return (
-    <div className="max-w-xl mx-auto mt-10 bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center">
-      <Avatar
-        src={avatar_url}
-        alt={name || "Profile photo"}
-        size="xl"
-        className="mb-4"
-      />
-      <div className="w-full text-center mb-6">
-        <h2 className="text-2xl font-bold text-blue-700 mb-2">
-          {name} {surname}
-        </h2>
-        <p className="text-gray-600 mb-1">
-          Email: <b>{email}</b>
-        </p>
-        <p>
-          Email verified:{" "}
-          <input type="checkbox" disabled checked={email_verified} />
-        </p>
-        <p className="text-gray-600 mb-1">
-          Phone: <b>{phone || "-"}</b>
-        </p>
-        <p>
-          Phone verified:{" "}
-          <input type="checkbox" disabled checked={phone_verified} />
-        </p>
-      </div>
-      <div className="flex justify-around gap-2">
-        <Button onClick={() => setEditing(true)} className="mb-2">
-          Edit Profile
-        </Button>
-        <Button variant="error" onClick={handleSignOut}>
-          Sign Out
-        </Button>
-      </div>
-      {editing && (
-        <ProfileForm
-          initialData={{ name, surname, email, phone, avatar_url }}
-          onClose={() => setEditing(false)}
-          onSubmit={updateMetadata}
+    <div className="h-screen flex items-center justify-center bg-gradient-to-br from-pink-200 via-pink-100 to-fuchsia-200">
+      <div className="max-w-xl mx-auto mt-10 bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center">
+        <div>
+          <h1 className="text-2xl font-bold text-center w-full mb-2">
+            My profile
+          </h1>
+        </div>
+        <Avatar
+          src={avatar_url}
+          alt={name || "Profile photo"}
+          size="xl"
+          className="mb-4"
         />
-      )}
+        <div className="w-full text-center">
+          <h2 className="text-2xl font-bold text-blue-700 mb-2">
+            {name} {surname}
+          </h2>
+          <p className="text-gray-600 mb-1">
+            Email: <b>{email}</b>
+          </p>
+          <p>
+            Email verified:{" "}
+            <input type="checkbox" disabled checked={email_verified} />
+          </p>
+          <p className="text-gray-600 mb-1">
+            Phone: <b>{phone || "-"}</b>
+          </p>
+          <p>
+            Phone verified:{" "}
+            <input type="checkbox" disabled checked={phone_verified} />
+          </p>
+        </div>
+        <div className="flex justify-around gap-2">
+          <Button onClick={() => setEditing(true)} className="mb-2">
+            Edit Profile
+          </Button>
+          <Button variant="error" onClick={handleSignOut}>
+            Sign Out
+          </Button>
+        </div>
+        {editing && (
+          <ProfileForm
+            initialData={{ name, surname, email, phone, avatar_url }}
+            onClose={() => setEditing(false)}
+            onSubmit={updateMetadata}
+          />
+        )}
+      </div>
     </div>
   );
 }
