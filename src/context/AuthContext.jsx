@@ -8,17 +8,18 @@ const useAuth = () => {
     return context;
 }
 
-async function fetchAuthInfo() {
-    return (await client.auth.getUser()).data.user;
-}
-
 function AuthProvider({ children }) {
     const [authInfo, setAuthInfo] = useState(null);
 
     useEffect(() => {
-        fetchAuthInfo().then((user) => {
-            setAuthInfo(user);
-        })
+        client.auth.onAuthStateChange((event, session) => {
+            if (session) {
+                setAuthInfo(session.user);
+            }
+            else {
+                setAuthInfo(null);
+            }
+        });
     }, []);
 
     return <authContext.Provider value={authInfo}>{
