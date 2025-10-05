@@ -16,13 +16,7 @@ function Drawer({ children }) {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/vault">Vault</Link>
-          </li>
-          <li>
             <Link to="/explorevault">Explore Vault</Link>
-          </li>
-          <li>
-            <Link to="/profile">Profile</Link>
           </li>
         </ul>
       </div>
