@@ -71,8 +71,8 @@ function ProfileForm({ initialData, onClose, onSubmit }) {
             onChange={handleChange}
           />
           <div className="flex gap-4 mt-4">
-            <Button type="submit" color="blue">Save</Button>
-            <Button type="button" color="gray" onClick={onClose}>Cancel</Button>
+            <Button type="submit" variant="primary" className="flex-1">Save</Button>
+            <Button type="button" onClick={onClose} className="flex-none">Cancel</Button>
           </div>
         </form>
       </div>
