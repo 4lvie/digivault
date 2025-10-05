@@ -9,13 +9,17 @@
  * <MemoryCard />
  */
 
+import Card from "./Card";
+
 function MemoryCard({ task, onClick }) {
   // Render the memory card with image or placeholder text
   return (
     // Clickable card container
-    <div
+    <Card
       onClick={() => onClick(task)}
-      className="sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 rounded-xl shadow-md border border-gray-200 flex items-center justify-center bg-white hover:shadow-lg transition cursor-pointer"
+      hoverable
+      shadow="md"
+      className="sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 border border-gray-200 flex items-center justify-center bg-white"
     >
       {task.item_image ? (
         <img
@@ -27,7 +31,7 @@ function MemoryCard({ task, onClick }) {
         // Placeholder text when no image is available
         <span className="text-xs text-gray-400">No Image</span>
       )}
-    </div>
+    </Card>
   );
 }
 

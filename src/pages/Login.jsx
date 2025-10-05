@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { client } from "../supabase/client";
+import Button from "../components/ui/Button";
+import Card from "../components/ui/Card";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -43,7 +45,7 @@ function Login() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300">
-      <div className="card w-full max-w-md bg-white shadow-xl p-8 rounded-2xl">
+      <Card className="bg-white w-full max-w-md p-8">
         <h2 className="text-3xl font-bold text-center text-blue-700 mb-6">
           Sign In
         </h2>
@@ -58,15 +60,15 @@ function Login() {
           />
           <input
             type="password"
-            placeholder="your-password"
+            placeholder="your password"
             className="input input-bordered input-info w-full"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button className="btn btn-info btn-block text-lg font-semibold mt-2">
+          <Button variant="primary" type="submit" className="px-6 py-3 flex-1">
             Login
-          </button>
+          </Button>
           {errorMsg && (
             <div className="alert alert-error mt-2 py-2 px-4 text-sm">
               {errorMsg}
@@ -75,11 +77,11 @@ function Login() {
         </form>
         <div className="mt-6 text-center text-gray-500 text-sm">
           Don't have an account?{" "}
-          <Link to="/signup" className="text-blue-600 underline cursor-pointer">
+          <Link to="/signup" className="link link-primary">
             Sign up
           </Link>
         </div>
-      </div>
+      </Card>
     </div>
   );
 }

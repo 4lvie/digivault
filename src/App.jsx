@@ -1,34 +1,27 @@
-import { useEffect } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { client } from "./supabase/client";
-
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Vault from "./pages/Vault";
+import ExploreVault from "./pages/ExploreVault";
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
+import Profile from "./pages/Profile";
+import NotFound from "./pages/NotFound";
+import Layout from "./components/ui/Layout";
 import "./App.css";
 
 function App() {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    client.auth.onAuthStateChange((event, session) => {
-      if (!session) {
-        navigate("/login");
-      } else {
-        navigate("/");
-      }
-    });
-  }, []);
-
   return (
-    <>
-      <nav>
-        <Link to="/"> Home </Link>
-        <Link to="/login"> Login </Link>
-        <Link to="/vault"> Vault </Link>
-        <Link to="/explorevault"> Explore Vault </Link>
-        <Link to="/profile"> Profile </Link>
-      </nav>
-      <Outlet />
-    </>
+    <Routes>
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="vault" element={<Vault />} />
+          <Route path="explorevault" element={<ExploreVault />} />
+          <Route path="login" element={<Login />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="signup" element={<SignUp />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
   );
 }
 

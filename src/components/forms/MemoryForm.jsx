@@ -14,6 +14,11 @@ import Dropzone from "./Dropzone";
 import { CONSTS } from "../../constants/Constants";
 import { useState, useEffect } from "react";
 import { useTask } from "../../context/TaskContext";
+import Button from "../ui/Button";
+import Modal from "../ui/Modal";
+import Toast from "../ui/Toast";
+
+const MODAL_ID = "memoryform";
 
 function MemoryForm({ initialData = null, onClose = null }) {
   // Form state variables
@@ -54,9 +59,13 @@ function MemoryForm({ initialData = null, onClose = null }) {
     onClose(null); // Notify parent to clear editMemory state
   };
 
+  const isFormValid = memoryName && memoryDetails && memoryDate && memoryLocation;
+
   // Handle form submission
   const saveMemory = async (e) => {
     e.preventDefault();
+
+    if (!isFormValid) return;
     const payload = {
       item_name: memoryName,
       item_location: memoryLocation,
@@ -76,7 +85,7 @@ function MemoryForm({ initialData = null, onClose = null }) {
     setShowToast(true);
     setTimeout(() => setShowToast(false), 3000);
     resetForm();
-    document.getElementById("memoryform").checked = false; // Close modal
+    document.getElementById(MODAL_ID).close();
 
     if (onClose) {
       onClose(null); // Notify parent to clear editMemory state
@@ -86,24 +95,19 @@ function MemoryForm({ initialData = null, onClose = null }) {
   return (
     // Main container
     <div>
-      {/* Button to open modal */}
-      <label
-        htmlFor="memoryform"
-        className="px-6 py-3 bg-blue-600 text-white rounded-xl shadow-md hover:bg-blue-700 transition"
-      >
-        New Item
-      </label>
+      {/* Label to open modal */}
+      <Button onClick={() => document.getElementById(MODAL_ID).showModal()} variant="primary" className="px-6 py-3">
+        New Memory
+      </Button>
 
       {/* Modal structure */}
-      <input type="checkbox" id="memoryform" className="modal-toggle" />
-      <div className="modal">
-        <div className="modal-box">
+      <Modal onClose={resetForm} id={MODAL_ID}>
           {/* Form title */}
           <h3 className="font-bold text-2xl mb-2 text-center text-blue-800">
             {initialData ? "Edit Memory" : "Add New Memory"}
           </h3>
           {/* Memory form */}
-          <form className="space-y-2 mt-4">
+          <form className="space-y-2 mt-4" onSubmit={saveMemory}>
             <div className="flex space-y-0 md:space-y-0 md:space-x-4">
               {/* Dropzone for image upload */}
               <Dropzone memoryImage={memoryImage} onChange={setMemoryImage} />
@@ -117,6 +121,7 @@ function MemoryForm({ initialData = null, onClose = null }) {
                   className="input input-bordered w-full"
                   value={memoryName}
                   onChange={(e) => setMemoryName(e.target.value)}
+                  required
                 />
                 <textarea
                   // Memory Details
@@ -124,6 +129,7 @@ function MemoryForm({ initialData = null, onClose = null }) {
                   className="textarea textarea-bordered"
                   value={memoryDetails}
                   onChange={(e) => setMemoryDetails(e.target.value)}
+                  required
                 ></textarea>
               </div>
             </div>
@@ -139,6 +145,7 @@ function MemoryForm({ initialData = null, onClose = null }) {
                 className="input input-bordered w-full"
                 value={memoryLocation}
                 onChange={(e) => setMemoryLocation(e.target.value)}
+                required
               />
             </fieldset>
           </div>
@@ -151,16 +158,18 @@ function MemoryForm({ initialData = null, onClose = null }) {
                 className="input w-full"
                 value={memoryDate}
                 onChange={(e) => setMemoryDate(e.target.value)}
+                required
               />
             </fieldset>
           </div>
           {/* Modal action buttons */}
-          <div className="modal-action">
-            <button
-              // Add Memory button
-              className="px-6 py-3 bg-blue-600 text-white rounded-xl shadow-md hover:bg-blue-700 transition space-y-2 w-full"
+          <div className="modal-action flex">
+            <Button
+              variant="primary"
+              className="px-6 py-3 flex-1"
               onClick={saveMemory}
-              disabled={adding}
+              isLoading={adding}
+              isDisabled={!isFormValid}
             >
               {initialData
                 ? adding
@@ -169,25 +178,21 @@ function MemoryForm({ initialData = null, onClose = null }) {
                 : adding
                 ? "Adding..."
                 : "Add Memory"}
-            </button>
-            <label
-              // Close button
-              htmlFor="memoryform"
-              className="px-6 py-3 bg-gray-400 text-white rounded-xl shadow-md hover:bg-gray-700 transition"
-              onClick={resetForm}
+            </Button>
+            <Button
+              className="py-3 flex-none"
+              onClick={() => {
+                document.getElementById(MODAL_ID).close();
+                resetForm();
+              }}
             >
-              Close
-            </label>
+              Cancel
+            </Button>
           </div>
-          {showToast && (
-            <div className="toast toast-center toast-middle">
-              <div className="alert alert-success">
-                <span>New memory saved</span>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
+      </Modal>
+      {showToast && (
+        <Toast message="Memory saved"/>
+      )}
     </div>
   );
 }
