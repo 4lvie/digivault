@@ -1,7 +1,20 @@
+import { useAuth } from '../context/AuthContext';
+import { client } from '../supabase/client';
+
+const updateMetadata = async (metadata) => {
+  await client.auth.updateUser({ data: metadata });
+}
+
 function Profile() {
+  const user = useAuth();
+
+  if (!user) {
+    throw new Error("User is necessary");
+  }
+
   return (
     <div>
-      <h2>Profile</h2>
+      <p>Name: <b>{user.user_metadata.name}</b></p>
     </div>
   );
 }
