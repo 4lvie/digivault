@@ -15,6 +15,7 @@ import { CONSTS } from "../../constants/Constants.jsx";
 import MemoryCard from "../ui/MemoryCard.jsx";
 import MemoryDetailModal from "../forms/MemoryDetailModal.jsx";
 import { useAuth } from "../../context/AuthContext.jsx";
+import Loading from "../ui/Loading.jsx";
 
 function MemoryList({ onEdit }) {
   // Fetch tasks from context
@@ -33,9 +34,7 @@ function MemoryList({ onEdit }) {
       {loading ? (
         // Loading state
         <div className="flex justify-center py-10">
-          <span className="loading loading-dots text-info loading-lg">
-            Loading...
-          </span>
+          <Loading />
         </div>
       ) : // Empty state
       tasks.length === 0 ? (

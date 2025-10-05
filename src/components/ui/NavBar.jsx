@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import Avatar from "./Avatar";
 
 function NavBar({ path }) {
+  const user = useAuth();
+
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="flex-none">
@@ -23,6 +27,11 @@ function NavBar({ path }) {
       <div className="flex-1">
         <Link className="btn btn-ghost text-xl" to={path}>
           digivault
+        </Link>
+      </div>
+      <div>
+        <Link className="mr-2 flex justify-center items-center" to="/profile">
+          <Avatar src={user?.user_metadata.avatar_url}/>
         </Link>
       </div>
     </div>
