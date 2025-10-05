@@ -14,16 +14,18 @@ import { useEffect, useState } from "react";
 import { CONSTS } from "../../constants/Constants.jsx";
 import MemoryCard from "../ui/MemoryCard.jsx";
 import MemoryDetailModal from "../forms/MemoryDetailModal.jsx";
+import { useAuth } from "../../context/AuthContext.jsx";
 
 function MemoryList({ onEdit }) {
   // Fetch tasks from context
   const { tasks, getTasks, loading } = useTask();
   const [selectedTask, setSelectedTask] = useState(null);
+  const user = useAuth();
 
   // Fetch tasks on component mount
   useEffect(() => {
-    getTasks({ tableName: CONSTS.MEMORIES });
-  }, []);
+    if (user) getTasks({ tableName: CONSTS.MEMORIES });
+  }, [user]);
 
   return (
     // Main container for the memory list

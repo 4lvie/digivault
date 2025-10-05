@@ -1,6 +1,7 @@
 import { createContext, useContext } from "react";
 import { useState } from "react";
 import { client } from "../supabase/client";
+import { useAuth } from "./AuthContext";
 
 export const TaskContext = createContext();
 
@@ -16,12 +17,13 @@ export const TaskProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
   const [adding, setAdding] = useState(false);
   const [loading, setLoading] = useState(false);
+  const user = useAuth();
 
   // Fetch tasks from Supabase
 
   const getTasks = async ({ tableName, fields }) => {
     setLoading(true);
-    const userID = (await client.auth.getUser()).data.user.id;
+    const userID = user?.id;
     const { error, data } = await client
       .from(tableName)
       .select(fields)
@@ -37,7 +39,7 @@ export const TaskProvider = ({ children }) => {
   const createMemory = async ({ tableName, payload }) => {
     try {
       setAdding(true);
-      const userID = (await client.auth.getUser()).data.user.id;
+      const userID = user?.id;
 
       const { error, data } = await client
         .from(tableName)
@@ -63,7 +65,7 @@ export const TaskProvider = ({ children }) => {
 
   const deleteMemory = async ({ tableName, id }) => {
     try {
-      const userID = (await client.auth.getUser()).data.user.id;
+      const userID = user?.id;
       const { data, error } = await client
         .from(tableName)
         .delete()
@@ -85,7 +87,7 @@ export const TaskProvider = ({ children }) => {
   const updateMemory = async ({ tableName, id, payload }) => {
     try {
       setAdding(true);
-      const userID = (await client.auth.getUser()).data.user.id;
+      const userID = user?.id;
       const { data, error } = await client
         .from(tableName)
         .update(payload)
