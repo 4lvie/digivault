@@ -15,12 +15,12 @@
  *
  * Note: Ensure that Framer Motion is installed in your project.
  */
-import { motion, AnimatePresence } from "framer-motion";
 import { useTask } from "../../context/TaskContext";
 import { useState } from "react";
 import { CONSTS } from "../../constants/Constants";
 import Button from "../ui/Button";
 import Card from "../ui/Card";
+import Modal from "../ui/Modal";
 
 function MemoryDetailModal({ task, onClose, onEditDetail }) {
   const { deleteMemory } = useTask();
@@ -51,34 +51,7 @@ function MemoryDetailModal({ task, onClose, onEditDetail }) {
   // Render the modal only if a task is provided
   return (
     // AnimatePresence for handling component mount/unmount animations
-    <AnimatePresence>
-      {task && (
-        <motion.div
-          key="overlay"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.25 }}
-          className="fixed inset-0 bg-black/60 flex items-center justify-center z-50"
-        >
-          <motion.div
-            // Modal container with animation
-            key="modal"
-            initial={{ scale: 0.9, opacity: 0, y: 50 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.9, opacity: 0, y: 50 }}
-            transition={{ type: "spring", stiffness: 200, damping: 20 }}
-            className="relative bg-gradient-to-br from-blue-50 to-white rounded-3xl shadow-2xl w-11/12 md:w-4/5 lg:w-3/4 xl:w-2/3 h-[85vh] flex flex-col items-center p-8 overflow-y-auto"
-          >
-            {/* Close button */}
-            <Button
-              onClick={onClose}
-              className="absolute top-4 right-4"
-              variant="ghost"
-            >
-              ✕
-            </Button>
-
+      <Modal open={Boolean(task)} onClose={onClose} containerClassName="w-11/12 md:w-4/5 lg:w-3/4 xl:w-2/3 h-[85vh]">
             <h2 className="text-4xl font-extrabold text-blue-800 mb-6 text-center">
               {task.item_name || "Untitled"}
             </h2>
@@ -153,10 +126,7 @@ function MemoryDetailModal({ task, onClose, onEditDetail }) {
                 </div>
               </div>
             )}
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+      </Modal>
   );
 }
 
