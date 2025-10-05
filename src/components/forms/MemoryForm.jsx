@@ -17,6 +17,7 @@ import { useTask } from "../../context/TaskContext";
 import Button from "../ui/Button";
 import LabelButton from "../ui/LabelButton";
 import Modal from "../ui/Modal";
+import Toast from "../ui/Toast";
 
 const MODAL_ID = "memoryform";
 
@@ -103,7 +104,7 @@ function MemoryForm({ initialData = null, onClose = null }) {
             {initialData ? "Edit Memory" : "Add New Memory"}
           </h3>
           {/* Memory form */}
-          <form className="space-y-2 mt-4">
+          <form className="space-y-2 mt-4" onSubmit={saveMemory}>
             <div className="flex space-y-0 md:space-y-0 md:space-x-4">
               {/* Dropzone for image upload */}
               <Dropzone memoryImage={memoryImage} onChange={setMemoryImage} />
@@ -180,14 +181,10 @@ function MemoryForm({ initialData = null, onClose = null }) {
               Cancel
             </Button>
           </div>
-          {showToast && (
-            <div className="toast toast-center toast-middle">
-              <div className="alert alert-success">
-                <span>New memory saved</span>
-              </div>
-            </div>
-          )}
       </Modal>
+      {showToast && (
+        <Toast message="Memory saved"/>
+      )}
     </div>
   );
 }
