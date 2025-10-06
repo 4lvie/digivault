@@ -23,36 +23,6 @@ Try Digivault live at:
 
 📂 File and image upload powered by Dropzone
 
-## Project Structure
-
-```
-src/
-  App.jsx, App.css, index.css, main.jsx
-  components/
-    MemoryCard.jsx         # Individual memory card
-    MemoryList.jsx         # Memory grid
-    ux/
-      Drawer.jsx           # Sidebar menu
-      Dropzone.jsx         # Image upload
-      Layout.jsx           # Main layout
-      MemoryDetailModal.jsx# Memory detail modal
-      MemoryForm.jsx       # Add/edit memory form
-      NavBar.jsx           # Navigation bar
-  constants/
-    Constants.jsx          # Global constants
-  context/
-    TaskContext.jsx        # Memory management context
-  pages/
-    AuthLayout.jsx         # Auth layout
-    ExploreVault.jsx       # Explore page
-    Home.jsx               # Home page
-    Login.jsx              # Login page
-    NotFound.jsx           # 404 error page
-    Vault.jsx              # Vault page
-  supabase/
-    client.jsx             # Supabase configuration
-```
-
 ## ⚙️ Local Installation
 
 Follow these steps to run Digivault locally:

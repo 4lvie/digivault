@@ -2,6 +2,12 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import Avatar from "./Avatar";
 
+/**
+ * Navigation bar component with hamburger menu, logo, and user avatar
+ * @param {Object} props - Component props
+ * @param {string} props.path - Current page path for navigation
+ * @returns {JSX.Element} Navigation bar with menu toggle and user profile link
+ */
 function NavBar({ path }) {
   const user = useAuth();
 
@@ -31,7 +37,7 @@ function NavBar({ path }) {
       </div>
       <div>
         <Link className="mr-2 flex justify-center items-center" to="/profile">
-          <Avatar src={user?.user_metadata.avatar_url}/>
+          <Avatar src={user?.user_metadata.avatar_url} />
         </Link>
       </div>
     </div>

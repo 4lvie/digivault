@@ -1,30 +1,28 @@
-/**
- * ExploreVault Page Component
- * This page allows users to add new memories and view existing ones.
- * It includes a header, a form for adding memories, and a list of memories.
- *
- * @component
- * @returns {JSX.Element} The rendered ExploreVault page.
- *
- * @usage
- * <ExploreVault />
- *
- * Note: Ensure that the MemoryForm and MemoryList components are correctly implemented and imported.
- */
 import MemoryForm from "../components/forms/MemoryForm.jsx";
 import Card from "../components/ui/Card.jsx";
 import MemoryList from "../components/visualizers/MemoryList.jsx";
 import { useState } from "react";
 
+/**
+ * ExploreVault page component - main memory management interface
+ * Allows users to add new memories and view/edit existing ones
+ * Manages memory editing state and modal interactions
+ * @returns {JSX.Element} Memory management page with form and list components
+ */
 function ExploreVault() {
   const [editMemory, setEditMemory] = useState(null);
 
+  /**
+   * Handle memory editing - opens modal with memory data
+   */
   const handleEditMemory = (memory) => {
     setEditMemory(memory);
     document.getElementById("memoryform").showModal(); // Open modal
   };
 
-  // Handler to clear editMemory state when form is closed
+  /**
+   * Handler to clear or set editMemory state when form is closed/opened
+   */
   const handleSetMemory = (memory) => {
     setEditMemory(memory);
   };

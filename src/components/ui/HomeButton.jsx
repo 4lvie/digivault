@@ -1,5 +1,9 @@
 import LinkButton from "./LinkButton";
 
+/**
+ * Home button component that navigates to the main page
+ * @returns {JSX.Element} Square button with home icon linking to root path
+ */
 function HomeButton() {
   return (
     <LinkButton to="/" type={null} square variant="primary">

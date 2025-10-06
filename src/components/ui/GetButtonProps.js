@@ -1,3 +1,4 @@
+// Button color variant mappings
 const variants = {
   primary: "btn-primary",
   secondary: "btn-secondary",
@@ -9,6 +10,7 @@ const variants = {
   neutral: "btn-neutral",
 };
 
+// Button style type mappings
 const types = {
   outline: "btn-outline",
   soft: "btn-soft",
@@ -18,6 +20,16 @@ const types = {
   link: "btn-link",
 };
 
+/**
+ * Utility function that generates button CSS classes based on props
+ * @param {Object} props - Button configuration options
+ * @param {string|null} [props.variant=null] - Button color variant
+ * @param {string|null} [props.type=null] - Button style type
+ * @param {boolean} [props.isWide=false] - Whether button should be wide
+ * @param {boolean} [props.square=false] - Whether button should be square
+ * @param {string} [props.className=""] - Additional CSS classes
+ * @returns {Object} Object with generated className property
+ */
 export function getButtonProps({
   variant = null,
   type = null,

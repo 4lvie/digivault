@@ -5,14 +5,26 @@ import Button from "../components/ui/Button";
 import ProfileForm from "../components/forms/ProfileForm";
 import { client } from "../supabase/client";
 
+/**
+ * Update user metadata in Supabase
+ * @param {Object} metadata - User metadata to update
+ */
 const updateMetadata = async (metadata) => {
   await client.auth.updateUser({ data: metadata });
 };
 
+/**
+ * Profile page component that displays and manages user profile information
+ * Shows user details, avatar, verification status, and editing capabilities
+ * @returns {JSX.Element} User profile page with editing and sign out functionality
+ */
 function Profile() {
   const user = useAuth();
   const [editing, setEditing] = useState(false);
 
+  /**
+   * Handle user sign out
+   */
   const handleSignOut = async () => {
     await client.auth.signOut();
   };
