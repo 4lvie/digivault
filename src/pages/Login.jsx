@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { client } from "../supabase/client";
 import Button from "../components/ui/Button";
 import Card from "../components/ui/Card";
 import { useAuth } from "../context/AuthContext";
+import LinkButton from "../components/ui/LinkButton";
+import HomeButton from "../components/ui/HomeButton";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -37,12 +39,13 @@ function Login() {
 
   useEffect(() => {
     if (user) {
-      navigate('/')
+      navigate("/");
     }
   }, [navigate, user]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300">
+    <div className="min-h-screen gap-5 flex flex-col items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300">
+      <HomeButton />
       <Card className="bg-white w-full max-w-md p-8">
         <h2 className="text-3xl font-bold text-center text-blue-700 mb-6">
           Sign In
@@ -73,11 +76,9 @@ function Login() {
             </div>
           )}
         </form>
-        <div className="mt-6 text-center text-gray-500 text-sm">
-          Don't have an account?{" "}
-          <Link to="/signup" className="link link-primary">
-            Sign up
-          </Link>
+        <div className="mt-6 text-center text-gray-500 text-sm flex flex-col justify-center items-center">
+          <p>Don't have an account?</p>
+          <LinkButton to="/signup">Sign up</LinkButton>
         </div>
       </Card>
     </div>
