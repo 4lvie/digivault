@@ -66,58 +66,69 @@ function MemoryDetailModal({ task, onClose, onEditDetail }) {
   // Render the modal only if a task is provided
   return (
     <>
-      <Modal id={MODAL_ID} onClose={onClose} containerClassName="max-w-4xl flex flex-col justify-center items-center">
-            <h2 className="text-4xl font-extrabold text-blue-800 mb-6 text-center">
-              {task.item_name || "Untitled"}
-            </h2>
-            {/* Image */}
-            <div className="w-full flex justify-center mb-6">
-              <div className="bg-gray-100 rounded-2xl shadow-lg overflow-hidden flex items-center justify-center w-[500px] h-[400px]">
-                {task.item_image ? (
-                  <img
-                    src={task.item_image}
-                    alt={task.item_name}
-                    className="object-contain w-23/24 h-23/24"
-                  />
-                ) : (
-                  <span className="text-gray-400 text-lg">No Image</span>
-                )}
-              </div>
-            </div>
-            {/* Details: Description, Location, Date */}
-            <Card shadow="md" className="bg-white p-6 w-full md:w-3/4 space-y-4 text-gray-700">
-              <p className="text-lg">
-                <strong className="text-blue-700">📖 Description:</strong>{" "}
-                {task.item_desc || "No description available"}
-              </p>
-              <p className="text-lg">
-                <strong className="text-blue-700">📍 Location:</strong>{" "}
-                {task.item_location || "Unknown"}
-              </p>
-              <p className="text-lg">
-                <strong className="text-blue-700">📅 Date:</strong>{" "}
-                {task.item_obtained_date || "Unknown"}
-              </p>
-            </Card>
-            <div className="flex space-x-4 mt-6">
-              <Button
-                variant="primary"
-                onClick={() => onEdit(task)}
-                className="px-6 py-3 mt-4"
-              >
-                Edit Memory
-              </Button>
-              <Button
-                variant="secondary"
-                className="px-6 py-3 mt-4"
-                onClick={() => handleDelete()} // callback to delete the memory
-              >
-                Delete Memory
-              </Button>
-            </div>
+      <Modal
+        id={MODAL_ID}
+        onClose={onClose}
+        containerClassName="max-w-4xl flex flex-col justify-center items-center"
+      >
+        <h2 className="break-all text-4xl font-extrabold text-blue-800 mb-6 text-center">
+          {task.item_name || "Untitled"}
+        </h2>
+        {/* Image */}
+        <div className="w-full flex justify-center mb-6">
+          <div className="bg-gray-100 rounded-2xl shadow-lg overflow-hidden flex items-center justify-center w-[500px] h-[400px]">
+            {task.item_image ? (
+              <img
+                src={task.item_image}
+                alt={task.item_name}
+                className="object-contain w-23/24 h-23/24"
+              />
+            ) : (
+              <span className="text-gray-400 text-lg">No Image</span>
+            )}
+          </div>
+        </div>
+        {/* Details: Description, Location, Date */}
+        <Card
+          shadow="md"
+          className="bg-white p-6 w-full md:w-3/4 space-y-4 text-gray-700"
+        >
+          <p className="break-all text-lg">
+            <strong className="text-blue-700">📖 Description:</strong>{" "}
+            {task.item_desc || "No description available"}
+          </p>
+          <p className="break-all text-lg">
+            <strong className="text-blue-700">📍 Location:</strong>{" "}
+            {task.item_location || "Unknown"}
+          </p>
+          <p className="text-lg">
+            <strong className="text-blue-700">📅 Date:</strong>{" "}
+            {task.item_obtained_date || "Unknown"}
+          </p>
+        </Card>
+        <div className="flex space-x-4 mt-6">
+          <Button
+            variant="primary"
+            onClick={() => onEdit(task)}
+            className="px-6 py-3 mt-4"
+          >
+            Edit Memory
+          </Button>
+          <Button
+            variant="secondary"
+            className="px-6 py-3 mt-4"
+            onClick={() => handleDelete()} // callback to delete the memory
+          >
+            Delete Memory
+          </Button>
+        </div>
       </Modal>
       {/* Confirm Delete Popup */}
-      <Modal ref={deleteModal} onClose={cancelDelete} containerClassName="max-w-lg flex flex-col justify-center items-center">
+      <Modal
+        ref={deleteModal}
+        onClose={cancelDelete}
+        containerClassName="max-w-lg flex flex-col justify-center items-center"
+      >
         <div className="flex flex-col items-center">
           <h3 className="text-xl font-bold text-red-600 mb-4">
             Confirm Deletion

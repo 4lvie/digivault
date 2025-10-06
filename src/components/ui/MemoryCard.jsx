@@ -29,7 +29,9 @@ function MemoryCard({ task, onClick }) {
         />
       ) : (
         // Placeholder text when no image is available
-        <span className="text-xs text-gray-400">No Image</span>
+        <p className="w-full overflow-hidden text-ellipsis text-s font-bold text-gray-400">
+          {task.item_name}
+        </p>
       )}
     </Card>
   );
