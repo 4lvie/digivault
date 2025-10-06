@@ -1,20 +1,13 @@
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import Button from "../components/ui/Button";
 import Card from "../components/ui/Card";
 import Avatar from "../components/ui/Avatar";
+import LinkButton from "../components/ui/LinkButton";
 
 function Home() {
   const user = useAuth();
-  const navigate = useNavigate();
   const userName = user?.user_metadata?.name || "to Digivault";
   const avatarUrl = user?.user_metadata?.avatar_url;
-
-  const handleLogin = () => {
-    if (!user) {
-      navigate("/login");
-    }
-  };
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-red-100 via-pink-100 to-gray-100 px-4">
@@ -38,9 +31,9 @@ function Home() {
           </span>
         </p>
         {!user && (
-          <Button variant="primary" onClick={handleLogin}>
+          <LinkButton to="/login" type={null} variant="primary">
             Login to get started
-          </Button>
+          </LinkButton>
         )}
       </Card>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl">

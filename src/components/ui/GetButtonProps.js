@@ -2,8 +2,6 @@ const variants = {
   primary: "btn-primary",
   secondary: "btn-secondary",
   accent: "btn-accent",
-  ghost: "btn-ghost",
-  link: "btn-link",
   info: "btn-info",
   success: "btn-success",
   warning: "btn-warning",

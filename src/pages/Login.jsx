@@ -4,6 +4,7 @@ import { client } from "../supabase/client";
 import Button from "../components/ui/Button";
 import Card from "../components/ui/Card";
 import { useAuth } from "../context/AuthContext";
+import LinkButton from "../components/ui/LinkButton";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -37,7 +38,7 @@ function Login() {
 
   useEffect(() => {
     if (user) {
-      navigate('/')
+      navigate("/");
     }
   }, [navigate, user]);
 
@@ -73,11 +74,9 @@ function Login() {
             </div>
           )}
         </form>
-        <div className="mt-6 text-center text-gray-500 text-sm">
-          Don't have an account?{" "}
-          <Link to="/signup" className="link link-primary">
-            Sign up
-          </Link>
+        <div className="mt-6 text-center text-gray-500 text-sm flex flex-col justify-center items-center">
+          <p>Don't have an account?</p>
+          <LinkButton to="/signup">Sign up</LinkButton>
         </div>
       </Card>
     </div>

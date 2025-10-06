@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { client } from "../supabase/client";
 import Button from "../components/ui/Button";
 import Card from "../components/ui/Card";
+import LinkButton from "../components/ui/LinkButton";
 
 function SignUp() {
   const [email, setEmail] = useState("");
@@ -67,11 +68,11 @@ function SignUp() {
             </div>
           )}
         </form>
-        <div className="mt-6 text-center text-gray-500 text-sm">
-          Already have an account?{" "}
-          <Link to="/login" className="link link-primary">
+        <div className="mt-6 text-center text-gray-500 text-sm flex flex-col justify-center items-center">
+          <p>Already have an account?</p>
+          <LinkButton to="/login" className="link link-primary">
             Login
-          </Link>
+          </LinkButton>
         </div>
       </Card>
     </div>
