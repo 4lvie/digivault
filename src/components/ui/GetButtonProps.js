@@ -22,11 +22,14 @@ export function getButtonProps({
   variant = null,
   type = null,
   isWide = false,
+  square = false,
   className = "",
 }) {
   return {
     className: `btn ${variant ? variants[variant] : ""} ${
       type ? `${types[type]}` : ""
-    } ${isWide ? `btn-wide` : ""} ${className}`.trim(),
+    } ${isWide ? `btn-wide` : ""} ${
+      square ? "btn-square" : ""
+    } ${className}`.trim(),
   };
 }

@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { client } from "../supabase/client";
 import Button from "../components/ui/Button";
 import Card from "../components/ui/Card";
 import { useAuth } from "../context/AuthContext";
 import LinkButton from "../components/ui/LinkButton";
+import HomeButton from "../components/ui/HomeButton";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -43,7 +44,8 @@ function Login() {
   }, [navigate, user]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300">
+    <div className="min-h-screen gap-5 flex flex-col items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300">
+      <HomeButton />
       <Card className="bg-white w-full max-w-md p-8">
         <h2 className="text-3xl font-bold text-center text-blue-700 mb-6">
           Sign In

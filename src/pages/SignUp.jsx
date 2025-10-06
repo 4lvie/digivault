@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { client } from "../supabase/client";
 import Button from "../components/ui/Button";
 import Card from "../components/ui/Card";
 import LinkButton from "../components/ui/LinkButton";
+import HomeButton from "../components/ui/HomeButton";
 
 function SignUp() {
   const [email, setEmail] = useState("");
@@ -37,7 +38,8 @@ function SignUp() {
   }, [navigate]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-100 to-green-300">
+    <div className="min-h-screen flex gap-5 flex-col items-center justify-center bg-gradient-to-br from-green-100 to-green-300">
+      <HomeButton />
       <Card className="w-full bg-white max-w-md p-8">
         <h2 className="text-3xl font-bold text-center text-green-700 mb-6">
           Create Account
