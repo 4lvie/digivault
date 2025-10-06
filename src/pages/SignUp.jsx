@@ -6,16 +6,27 @@ import Card from "../components/ui/Card";
 import LinkButton from "../components/ui/LinkButton";
 import HomeButton from "../components/ui/HomeButton";
 
+/**
+ * Sign up page component for user registration
+ * Handles account creation with email/password and redirects to login
+ * Includes form validation and error handling
+ * @returns {JSX.Element} Registration form with validation and navigation
+ */
 function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const navigate = useNavigate();
 
+  /**
+   * Handle sign up form submission
+   * Creates new user account and redirects to login page
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMsg("");
     try {
+      // Create new user account
       const { error } = await client.auth.signUp({
         email,
         password,

@@ -1,5 +1,11 @@
 import { Link } from "react-router-dom";
 
+/**
+ * Drawer component that provides a slide-out navigation sidebar
+ * @param {Object} props - Component props
+ * @param {React.ReactNode} props.children - Main content to display
+ * @returns {JSX.Element} Drawer layout with navigation menu
+ */
 function Drawer({ children }) {
   return (
     <div className="drawer">

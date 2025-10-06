@@ -1,9 +1,13 @@
+/**
+ * 404 Not Found page component for invalid routes
+ * @returns {JSX.Element} Simple 404 error message
+ */
 function NotFound() {
-    return(
-        <div>
-            <h2>404 - Not Found</h2>
-        </div>
-    )
-};
+  return (
+    <div>
+      <h2>404 - Not Found</h2>
+    </div>
+  );
+}
 
 export default NotFound;

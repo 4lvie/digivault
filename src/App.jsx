@@ -9,6 +9,10 @@ import Layout from "./components/ui/Layout";
 import UserGranted from "./components/utils/UserGranted";
 import "./App.css";
 
+/**
+ * Main application component that handles routing and page navigation
+ * @returns {JSX.Element} The application with configured routes
+ */
 function App() {
   return (
     <Routes>

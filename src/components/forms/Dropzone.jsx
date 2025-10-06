@@ -1,19 +1,30 @@
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
-// Dropzone component for file uploads
+/**
+ * Dropzone component for file uploads with drag and drop functionality
+ * @param {Object} props - Component props
+ * @param {string|null} props.memoryImage - Current image data (base64 or URL)
+ * @param {function} props.onChange - Callback function when file is selected/dropped
+ * @param {boolean} [props.required=false] - Whether the field is required
+ * @returns {JSX.Element} File upload dropzone component
+ */
 function Dropzone({ memoryImage, onChange, required = false }) {
-  // Handle file drop.
-
+  /**
+   * Handle file drop event - converts file to base64 and calls onChange
+   */
   const onDrop = useCallback(
     (acceptedFiles) => {
       const file = acceptedFiles[0];
-      if (!file) return;
+      if (!file) {
+        return;
+      }
 
+      // Convert file to base64 using FileReader
       const reader = new FileReader();
       reader.onloadend = () => {
-        const base64Data = reader.result; // Esto será "data:image/png;base64,...."
-        onChange?.(base64Data); // lo mandamos al MemoryForm
+        const base64Data = reader.result;
+        onChange?.(base64Data);
       };
       reader.readAsDataURL(file);
     },

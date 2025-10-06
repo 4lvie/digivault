@@ -1,16 +1,12 @@
-/**
- * MemoryCard Component displays a single memory task as a card.
- * Handles click events to view memory details.
- *
- * @component
- * @returns {JSX.Element} The rendered memory card UI.
- *
- * @example
- * <MemoryCard />
- */
-
 import Card from "./Card";
 
+/**
+ * Memory card component that displays a single memory item as a clickable card
+ * @param {Object} props - Component props
+ * @param {Object} props.task - Memory object with item details (name, image, etc.)
+ * @param {function} props.onClick - Function called when card is clicked, receives task as argument
+ * @returns {JSX.Element} Clickable card showing memory image or name placeholder
+ */
 function MemoryCard({ task, onClick }) {
   // Render the memory card with image or placeholder text
   return (

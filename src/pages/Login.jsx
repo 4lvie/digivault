@@ -7,6 +7,12 @@ import { useAuth } from "../context/AuthContext";
 import LinkButton from "../components/ui/LinkButton";
 import HomeButton from "../components/ui/HomeButton";
 
+/**
+ * Login page component that handles user authentication
+ * Includes form validation, error handling, and redirect logic
+ * Automatically redirects authenticated users to home page
+ * @returns {JSX.Element} Login form with error handling and navigation
+ */
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,10 +20,15 @@ function Login() {
   const navigate = useNavigate();
   const user = useAuth();
 
+  /**
+   * Handle login form submission
+   * Validates user credentials and manages error states
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMsg("");
     try {
+      // Attempt to sign in with email and password
       const { data, error } = await client.auth.signInWithPassword({
         email,
         password,

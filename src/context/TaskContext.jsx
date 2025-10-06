@@ -3,8 +3,14 @@ import { useState } from "react";
 import { client } from "../supabase/client";
 import { useAuth } from "./AuthContext";
 
+// Context for task/memory management functionality
 export const TaskContext = createContext();
 
+/**
+ * Custom hook to access task context
+ * @throws {Error} When used outside of TaskProvider
+ * @returns {Object} Task context with state and CRUD operations
+ */
 export const useTask = () => {
   const context = useContext(TaskContext);
   if (!context) {
@@ -13,14 +19,24 @@ export const useTask = () => {
   return context;
 };
 
+/**
+ * Task provider component that manages memory/task state and operations
+ * @param {Object} props - Component props
+ * @param {React.ReactNode} props.children - Child components that need task context
+ * @returns {JSX.Element} Provider component with task management functionality
+ */
 export const TaskProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
   const [adding, setAdding] = useState(false);
   const [loading, setLoading] = useState(false);
   const user = useAuth();
 
-  // Fetch tasks from Supabase
-
+  /**
+   * Fetch user's tasks/memories from Supabase
+   * @param {Object} params - Query parameters
+   * @param {string} params.tableName - Name of the database table
+   * @param {string} [params.fields] - Comma-separated list of fields to select
+   */
   const getTasks = async ({ tableName, fields }) => {
     setLoading(true);
     const userID = user?.id;
@@ -36,11 +52,18 @@ export const TaskProvider = ({ children }) => {
     setLoading(false);
   };
 
+  /**
+   * Create a new memory/task in the database
+   * @param {Object} params - Creation parameters
+   * @param {string} params.tableName - Name of the database table
+   * @param {Object} params.payload - Data to insert
+   */
   const createMemory = async ({ tableName, payload }) => {
     try {
       setAdding(true);
       const userID = user?.id;
 
+      // Insert new memory with user ID
       const { error, data } = await client
         .from(tableName)
         .insert([
@@ -63,9 +86,16 @@ export const TaskProvider = ({ children }) => {
     }
   };
 
+  /**
+   * Delete a memory/task from the database
+   * @param {Object} params - Deletion parameters
+   * @param {string} params.tableName - Name of the database table
+   * @param {string|number} params.id - ID of the item to delete
+   */
   const deleteMemory = async ({ tableName, id }) => {
     try {
       const userID = user?.id;
+      // Delete memory and ensure user owns it
       const { data, error } = await client
         .from(tableName)
         .delete()
@@ -84,10 +114,18 @@ export const TaskProvider = ({ children }) => {
     }
   };
 
+  /**
+   * Update an existing memory/task in the database
+   * @param {Object} params - Update parameters
+   * @param {string} params.tableName - Name of the database table
+   * @param {string|number} params.id - ID of the item to update
+   * @param {Object} params.payload - Updated data
+   */
   const updateMemory = async ({ tableName, id, payload }) => {
     try {
       setAdding(true);
       const userID = user?.id;
+      // Update memory and ensure user owns it
       const { data, error } = await client
         .from(tableName)
         .update(payload)

@@ -1,14 +1,3 @@
-/**
- * MemoryList component displays a list of memory tasks as cards.
- * Fetches tasks from context on mount and shows loading, empty, or grid states.
- * Allows viewing details of a selected memory in a modal.
- *
- * @component
- * @returns {JSX.Element} The rendered memory list UI.
- *
- * @example
- * <MemoryList />
- */
 import { useTask } from "../../context/TaskContext.jsx";
 import { useEffect, useState } from "react";
 import { CONSTS } from "../../constants/Constants.jsx";
@@ -17,13 +6,20 @@ import MemoryDetailModal from "../forms/MemoryDetailModal.jsx";
 import { useAuth } from "../../context/AuthContext.jsx";
 import Loading from "../ui/Loading.jsx";
 
+/**
+ * Memory list component that displays user's memories in a responsive grid
+ * Handles loading states, empty states, and memory detail viewing
+ * @param {Object} props - Component props
+ * @param {function} props.onEdit - Function called when user wants to edit a memory
+ * @returns {JSX.Element} Grid of memory cards with detail modal functionality
+ */
 function MemoryList({ onEdit }) {
   // Fetch tasks from context
   const { tasks, getTasks, loading } = useTask();
   const [selectedTask, setSelectedTask] = useState(null);
   const user = useAuth();
 
-  // Fetch tasks on component mount
+  // Fetch memories when user is authenticated
   useEffect(() => {
     if (user) getTasks({ tableName: CONSTS.MEMORIES });
   }, [user]);

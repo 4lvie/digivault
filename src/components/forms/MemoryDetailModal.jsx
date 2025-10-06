@@ -1,20 +1,3 @@
-/**
- * MemoryDetailModal Component
- * Displays detailed information about a memory item in a modal.
- * Uses Framer Motion for smooth animations.
- *
- * Props:
- * - task: The memory item object containing details like name, description, image, location, and date.
- * - onClose: Function to close the modal.
- *
- * @component
- * @returns {JSX.Element} The rendered memory detail modal.
- *
- * @usage
- * <MemoryDetailModal task={selectedTask} onClose={handleClose} />
- *
- * Note: Ensure that Framer Motion is installed in your project.
- */
 import { useTask } from "../../context/TaskContext";
 import { useEffect, useRef, useState } from "react";
 import { CONSTS } from "../../constants/Constants";
@@ -22,8 +5,18 @@ import Button from "../ui/Button";
 import Card from "../ui/Card";
 import Modal from "../ui/Modal";
 
+//Centralize ID for better understanding
 const MODAL_ID = "memory-detail-modal";
 
+/**
+ * Modal component that displays detailed information about a memory item
+ * Includes options to edit or delete the memory with confirmation
+ * @param {Object} props - Component props
+ * @param {Object} props.task - Memory object with item details (name, description, image, location, date)
+ * @param {function} props.onClose - Function to close the modal
+ * @param {function} props.onEditDetail - Function to handle editing the memory
+ * @returns {JSX.Element} Memory detail modal with edit/delete actions
+ */
 function MemoryDetailModal({ task, onClose, onEditDetail }) {
   const deleteModal = useRef(null);
 

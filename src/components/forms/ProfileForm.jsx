@@ -2,7 +2,16 @@ import { useState } from "react";
 import Button from "../ui/Button";
 import Avatar from "../ui/Avatar";
 
+/**
+ * Profile form component for editing user profile information
+ * @param {Object} props - Component props
+ * @param {Object} props.initialData - Initial form data with user profile fields
+ * @param {function} props.onClose - Function to close the form
+ * @param {function} props.onSubmit - Function to handle form submission
+ * @returns {JSX.Element} Profile editing form with avatar display
+ */
 function ProfileForm({ initialData, onClose, onSubmit }) {
+  // Initialize form state with user data or empty strings
   const [form, setForm] = useState({
     name: initialData.name || "",
     surname: initialData.surname || "",
@@ -11,11 +20,17 @@ function ProfileForm({ initialData, onClose, onSubmit }) {
     avatar_url: initialData.avatar_url || "",
   });
 
+  /**
+   * Handle input field changes and update form state
+   */
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
+  /**
+   * Handle form submission
+   */
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit(form);
@@ -25,7 +40,12 @@ function ProfileForm({ initialData, onClose, onSubmit }) {
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
       <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md flex flex-col items-center">
         <h3 className="text-xl font-bold text-blue-700 mb-4">Edit Profile</h3>
-        <Avatar src={form.avatar_url} alt={form.name || "Profile photo"} size="xl" className="mb-4" />
+        <Avatar
+          src={form.avatar_url}
+          alt={form.name || "Profile photo"}
+          size="xl"
+          className="mb-4"
+        />
         <form onSubmit={handleSubmit} className="w-full flex flex-col gap-4">
           <input
             type="text"
@@ -71,8 +91,12 @@ function ProfileForm({ initialData, onClose, onSubmit }) {
             onChange={handleChange}
           />
           <div className="flex gap-4 mt-4">
-            <Button type="submit" variant="primary" className="flex-1">Save</Button>
-            <Button type="button" onClick={onClose} className="flex-none">Cancel</Button>
+            <Button type="submit" variant="primary" className="flex-1">
+              Save
+            </Button>
+            <Button type="button" onClick={onClose} className="flex-none">
+              Cancel
+            </Button>
           </div>
         </form>
       </div>

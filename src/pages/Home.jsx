@@ -4,6 +4,12 @@ import Card from "../components/ui/Card";
 import Avatar from "../components/ui/Avatar";
 import LinkButton from "../components/ui/LinkButton";
 
+/**
+ * Home page component that serves as the landing page for the application
+ * Shows welcome message, user avatar, and feature highlights
+ * Displays login link for unauthenticated users
+ * @returns {JSX.Element} Landing page with welcome content and feature cards
+ */
 function Home() {
   const user = useAuth();
   const userName = user?.user_metadata?.name || "to Digivault";

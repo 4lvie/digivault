@@ -18,6 +18,7 @@ import Button from "../ui/Button";
 import Modal from "../ui/Modal";
 import Toast from "../ui/Toast";
 
+//Centralize ID for better understanding
 const MODAL_ID = "memoryform";
 
 function MemoryForm({ initialData = null, onClose = null }) {
@@ -59,7 +60,8 @@ function MemoryForm({ initialData = null, onClose = null }) {
     onClose(null); // Notify parent to clear editMemory state
   };
 
-  const isFormValid = memoryName && memoryDetails && memoryDate && memoryLocation;
+  const isFormValid =
+    memoryName && memoryDetails && memoryDate && memoryLocation;
 
   // Handle form submission
   const saveMemory = async (e) => {
@@ -96,103 +98,105 @@ function MemoryForm({ initialData = null, onClose = null }) {
     // Main container
     <div>
       {/* Label to open modal */}
-      <Button onClick={() => document.getElementById(MODAL_ID).showModal()} variant="primary" className="px-6 py-3">
+      <Button
+        onClick={() => document.getElementById(MODAL_ID).showModal()}
+        variant="primary"
+        className="px-6 py-3"
+      >
         New Memory
       </Button>
 
       {/* Modal structure */}
       <Modal onClose={resetForm} id={MODAL_ID}>
-          {/* Form title */}
-          <h3 className="font-bold text-2xl mb-2 text-center text-blue-800">
-            {initialData ? "Edit Memory" : "Add New Memory"}
-          </h3>
-          {/* Memory form */}
-          <form className="space-y-2 mt-4" onSubmit={saveMemory}>
-            <div className="flex space-y-0 md:space-y-0 md:space-x-4">
-              {/* Dropzone for image upload */}
-              <Dropzone memoryImage={memoryImage} onChange={setMemoryImage} />
-              <div className="flex-1 space-y-2">
-                {/* Input fields for memory details */}
-                <input
-                  // Memory Name
-                  type="text"
-                  id="item-name"
-                  placeholder="Item Name"
-                  className="input input-bordered w-full"
-                  value={memoryName}
-                  onChange={(e) => setMemoryName(e.target.value)}
-                  required
-                />
-                <textarea
-                  // Memory Details
-                  placeholder="Memory Details"
-                  className="textarea textarea-bordered"
-                  value={memoryDetails}
-                  onChange={(e) => setMemoryDetails(e.target.value)}
-                  required
-                ></textarea>
-              </div>
-            </div>
-          </form>
-          <div className="mt-4 w-full">
-            {/* Item Location */}
-            <fieldset className="fieldset">
-              <legend className="fieldset-legend">Item Location</legend>
+        {/* Form title */}
+        <h3 className="font-bold text-2xl mb-2 text-center text-blue-800">
+          {initialData ? "Edit Memory" : "Add New Memory"}
+        </h3>
+        {/* Memory form */}
+        <form className="space-y-2 mt-4" onSubmit={saveMemory}>
+          <div className="flex space-y-0 md:space-y-0 md:space-x-4">
+            {/* Dropzone for image upload */}
+            <Dropzone memoryImage={memoryImage} onChange={setMemoryImage} />
+            <div className="flex-1 space-y-2">
+              {/* Input fields for memory details */}
               <input
+                // Memory Name
                 type="text"
-                id="item-location"
-                placeholder="Item Location"
+                id="item-name"
+                placeholder="Item Name"
                 className="input input-bordered w-full"
-                value={memoryLocation}
-                onChange={(e) => setMemoryLocation(e.target.value)}
+                value={memoryName}
+                onChange={(e) => setMemoryName(e.target.value)}
                 required
               />
-            </fieldset>
-          </div>
-          <div className="mt-2 ">
-            {/* Item Date */}
-            <fieldset className="fieldset">
-              <legend className="fieldset-legend">Item Date</legend>
-              <input
-                type="date"
-                className="input w-full"
-                value={memoryDate}
-                onChange={(e) => setMemoryDate(e.target.value)}
+              <textarea
+                // Memory Details
+                placeholder="Memory Details"
+                className="textarea textarea-bordered"
+                value={memoryDetails}
+                onChange={(e) => setMemoryDetails(e.target.value)}
                 required
-              />
-            </fieldset>
+              ></textarea>
+            </div>
           </div>
-          {/* Modal action buttons */}
-          <div className="modal-action flex">
-            <Button
-              variant="primary"
-              className="px-6 py-3 flex-1"
-              onClick={saveMemory}
-              isLoading={adding}
-              isDisabled={!isFormValid}
-            >
-              {initialData
-                ? adding
-                  ? "Updating..."
-                  : "Update Memory"
-                : adding
-                ? "Adding..."
-                : "Add Memory"}
-            </Button>
-            <Button
-              className="py-3 flex-none"
-              onClick={() => {
-                document.getElementById(MODAL_ID).close();
-                resetForm();
-              }}
-            >
-              Cancel
-            </Button>
-          </div>
+        </form>
+        <div className="mt-4 w-full">
+          {/* Item Location */}
+          <fieldset className="fieldset">
+            <legend className="fieldset-legend">Item Location</legend>
+            <input
+              type="text"
+              id="item-location"
+              placeholder="Item Location"
+              className="input input-bordered w-full"
+              value={memoryLocation}
+              onChange={(e) => setMemoryLocation(e.target.value)}
+              required
+            />
+          </fieldset>
+        </div>
+        <div className="mt-2 ">
+          {/* Item Date */}
+          <fieldset className="fieldset">
+            <legend className="fieldset-legend">Item Date</legend>
+            <input
+              type="date"
+              className="input w-full"
+              value={memoryDate}
+              onChange={(e) => setMemoryDate(e.target.value)}
+              required
+            />
+          </fieldset>
+        </div>
+        {/* Modal action buttons */}
+        <div className="modal-action flex">
+          <Button
+            variant="primary"
+            className="px-6 py-3 flex-1"
+            onClick={saveMemory}
+            isLoading={adding}
+            isDisabled={!isFormValid}
+          >
+            {initialData
+              ? adding
+                ? "Updating..."
+                : "Update Memory"
+              : adding
+              ? "Adding..."
+              : "Add Memory"}
+          </Button>
+          <Button
+            className="py-3 flex-none"
+            onClick={() => {
+              document.getElementById(MODAL_ID).close();
+              resetForm();
+            }}
+          >
+            Cancel
+          </Button>
+        </div>
       </Modal>
-      {showToast && (
-        <Toast message="Memory saved"/>
-      )}
+      {showToast && <Toast message="Memory saved" />}
     </div>
   );
 }
