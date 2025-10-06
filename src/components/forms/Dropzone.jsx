@@ -39,7 +39,11 @@ function Dropzone({ memoryImage, onChange, required = false }) {
         {!memoryImage ? (
           <p>Upload Image</p>
         ) : (
-          <img src={memoryImage} alt="preview" className="object-cover" />
+          <img
+            src={memoryImage}
+            alt="preview"
+            className="object-contain h-[95%] w-full"
+          />
         )}
       </div>
     </div>
