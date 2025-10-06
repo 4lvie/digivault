@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import Button from "../components/ui/Button";
 import Card from "../components/ui/Card";
@@ -17,9 +17,9 @@ function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100 px-4">
-      <div className="max-w-2xl w-full bg-white/80 rounded-sm shadow-2xl p-10 flex flex-col items-center mb-8">
-        <h1 className="text-4xl font-extrabold text-pink-500 mb-2 tracking-tight drop-shadow text-center">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-red-100 via-pink-100 to-gray-100 px-4">
+      <Card className="max-w-2xl w-full bg-white/80 p-10 flex flex-col items-center mb-8">
+        <h1 className="text-4xl font-extrabold text-red-400 mb-2 tracking-tight drop-shadow text-center">
           Welcome {user ? userName : "to Digivault"}!
         </h1>
         {user && (
@@ -27,7 +27,7 @@ function Home() {
             src={avatarUrl}
             alt={userName}
             size="lg"
-            className="mb-4 border-4 border-pink-300 shadow-lg"
+            className="mb-4 shadow-lg"
           />
         )}
         <p className="text-lg text-gray-700 text-center mb-6">
@@ -42,9 +42,9 @@ function Home() {
             Login to get started
           </Button>
         )}
-      </div>
+      </Card>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl">
-        <Card className="bg-white/90 border border-blue-100 shadow-lg p-6 flex flex-col items-center">
+        <Card className="bg-white border border-blue-100 shadow-lg p-6 flex flex-col items-center">
           <span className="text-4xl mb-2">🖼️</span>
           <h3 className="text-xl font-bold text-blue-700 mb-2">
             Visualize Memories
@@ -54,7 +54,7 @@ function Home() {
             moments with a modern, responsive UI.
           </p>
         </Card>
-        <Card className="bg-white/90 border border-purple-100 shadow-lg p-6 flex flex-col items-center">
+        <Card className="bg-white border border-purple-100 shadow-lg p-6 flex flex-col items-center">
           <span className="text-4xl mb-2">➕</span>
           <h3 className="text-xl font-bold text-purple-700 mb-2">Add & Edit</h3>
           <p className="text-gray-600 text-center">
@@ -62,7 +62,7 @@ function Home() {
             your vault with just a few clicks.
           </p>
         </Card>
-        <Card className="bg-white/90 border border-pink-100 shadow-lg p-6 flex flex-col items-center">
+        <Card className="bg-white border border-pink-100 shadow-lg p-6 flex flex-col items-center">
           <span className="text-4xl mb-2">🔒</span>
           <h3 className="text-xl font-bold text-pink-700 mb-2">
             Secure & Private
