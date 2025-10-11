@@ -6,6 +6,7 @@ import Card from "../components/ui/Card";
 import { useAuth } from "../context/AuthContext";
 import LinkButton from "../components/ui/LinkButton";
 import HomeButton from "../components/ui/HomeButton";
+import AuthForm from "../components/forms/AuthForm";
 
 /**
  * Login page component that handles user authentication
@@ -14,8 +15,6 @@ import HomeButton from "../components/ui/HomeButton";
  * @returns {JSX.Element} Login form with error handling and navigation
  */
 function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const navigate = useNavigate();
   const user = useAuth();
@@ -24,8 +23,7 @@ function Login() {
    * Handle login form submission
    * Validates user credentials and manages error states
    */
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async ({ email, password }) => {
     setErrorMsg("");
     try {
       // Attempt to sign in with email and password
@@ -61,32 +59,11 @@ function Login() {
         <h2 className="text-3xl font-bold text-center text-blue-700 mb-6">
           Sign In
         </h2>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <input
-            type="email"
-            placeholder="youremail@site.com"
-            className="input input-bordered input-info w-full"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <input
-            type="password"
-            placeholder="your password"
-            className="input input-bordered input-info w-full"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <Button variant="primary" type="submit" className="px-6 py-3 flex-1">
-            Login
-          </Button>
-          {errorMsg && (
-            <div className="alert alert-error mt-2 py-2 px-4 text-sm">
-              {errorMsg}
-            </div>
-          )}
-        </form>
+        <AuthForm
+          onSubmit={handleSubmit}
+          buttonName={"Login"}
+          errorMsg={errorMsg}
+        />
         <div className="mt-6 text-center text-gray-500 text-sm flex flex-col justify-center items-center">
           <p>Don't have an account?</p>
           <LinkButton to="/signup">Sign up</LinkButton>
