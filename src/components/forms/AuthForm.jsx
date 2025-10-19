@@ -1,7 +1,12 @@
 import { useState } from "react";
 import Button from "../ui/Button";
 
-function AuthForm({ onSubmit = null, buttonName = null, errorMsg = null }) {
+function AuthForm({
+  onSubmit = null,
+  buttonName = null,
+  errorMsg = null,
+  isLoading = false,
+}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -29,7 +34,12 @@ function AuthForm({ onSubmit = null, buttonName = null, errorMsg = null }) {
         onChange={(e) => setPassword(e.target.value)}
         required
       />
-      <Button variant="primary" type="submit" className="px-6 py-3 flex-1">
+      <Button
+        variant="primary"
+        type="submit"
+        className="px-6 py-3 flex-1"
+        isLoading={isLoading}
+      >
         {buttonName}
       </Button>
       {errorMsg && (

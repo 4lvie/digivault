@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import { useNavigate } from "react-router-dom";
 import { client } from "../supabase/client";
 import Button from "../components/ui/Button";
@@ -16,6 +16,7 @@ import AuthForm from "../components/forms/AuthForm";
  */
 function Login() {
   const [errorMsg, setErrorMsg] = useState("");
+  const [formIsLoading, setFormIsLoading] = useState(false);
   const navigate = useNavigate();
   const user = useAuth();
 
@@ -26,6 +27,9 @@ function Login() {
   const handleSubmit = async ({ email, password }) => {
     setErrorMsg("");
     try {
+      console.log(formIsLoading);
+      setFormIsLoading(true);
+      console.log(formIsLoading);
       // Attempt to sign in with email and password
       const { data, error } = await client.auth.signInWithPassword({
         email,
@@ -36,6 +40,7 @@ function Login() {
         setErrorMsg(error.message);
         return;
       }
+      setFormIsLoading(false);
       if (data?.user && data.user.confirmed_at) {
         navigate("/");
       } else {
@@ -63,6 +68,7 @@ function Login() {
           onSubmit={handleSubmit}
           buttonName={"Login"}
           errorMsg={errorMsg}
+          isLoading={formIsLoading}
         />
         <div className="mt-6 text-center text-gray-500 text-sm flex flex-col justify-center items-center">
           <p>Don't have an account?</p>

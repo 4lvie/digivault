@@ -17,6 +17,7 @@ import Modal from "../components/ui/Modal";
 function SignUp() {
   const modalRef = useRef();
   const [errorMsg, setErrorMsg] = useState("");
+  const [formIsLoading, setFormIsLoading] = useState(false);
   const navigate = useNavigate();
 
   /**
@@ -26,6 +27,7 @@ function SignUp() {
   const handleSubmit = async ({ email, password }) => {
     setErrorMsg("");
     try {
+      setFormIsLoading(true);
       // Create new user account
       const { error } = await client.auth.signUp({
         email,
@@ -39,6 +41,7 @@ function SignUp() {
     } catch (error) {
       setErrorMsg("Sign up failed. Please try again.");
     }
+    setFormIsLoading(false);
   };
 
   useEffect(() => {
@@ -71,6 +74,7 @@ function SignUp() {
           onSubmit={handleSubmit}
           buttonName={"Sign Up"}
           errorMsg={errorMsg}
+          isLoading={formIsLoading}
         />
         <div className="mt-6 text-center text-gray-500 text-sm flex flex-col justify-center items-center">
           <p>Already have an account?</p>
