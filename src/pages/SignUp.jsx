@@ -1,11 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { client } from "../supabase/client";
-import Button from "../components/ui/Button";
 import Card from "../components/ui/Card";
 import LinkButton from "../components/ui/LinkButton";
 import HomeButton from "../components/ui/HomeButton";
 import AuthForm from "../components/forms/AuthForm";
+import Toast from "../components/ui/Toast";
+import Modal from "../components/ui/Modal";
 
 /**
  * Sign up page component for user registration
@@ -14,17 +15,15 @@ import AuthForm from "../components/forms/AuthForm";
  * @returns {JSX.Element} Registration form with validation and navigation
  */
 function SignUp() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const modalRef = useRef();
   const [errorMsg, setErrorMsg] = useState("");
   const navigate = useNavigate();
 
   /**
-   * Handle sign up form submission
-   * Creates new user account and redirects to login page
+   * Handle sign up form submission.
+   * Creates new user account sending an email to the user registering.
    */
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async ({ email, password }) => {
     setErrorMsg("");
     try {
       // Create new user account
@@ -32,8 +31,11 @@ function SignUp() {
         email,
         password,
       });
-      if (error) setErrorMsg(error.message);
-      else navigate("/login");
+      if (error) {
+        setErrorMsg(error.message);
+      } else {
+        modalRef.current.showModal(); //show email modal
+      }
     } catch (error) {
       setErrorMsg("Sign up failed. Please try again.");
     }
@@ -52,6 +54,15 @@ function SignUp() {
   return (
     <div className="min-h-screen flex gap-5 flex-col items-center justify-center bg-gradient-to-br from-green-100 to-green-300">
       <HomeButton />
+      {/*Inform user to review mail*/}
+      <div>
+        <Modal onClose={() => modalRef.current.close()} ref={modalRef}>
+          <p>Check mail inbox for ending authetication process.</p>
+          <LinkButton to="/login" className="link link-primary">
+            Return to Login
+          </LinkButton>
+        </Modal>
+      </div>
       <Card className="w-full bg-white max-w-md p-8">
         <h2 className="text-3xl font-bold text-center text-green-700 mb-6">
           Create Account
