@@ -27,9 +27,7 @@ function Login() {
   const handleSubmit = async ({ email, password }) => {
     setErrorMsg("");
     try {
-      console.log(formIsLoading);
       setFormIsLoading(true);
-      console.log(formIsLoading);
       // Attempt to sign in with email and password
       const { data, error } = await client.auth.signInWithPassword({
         email,
